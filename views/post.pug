@@ -1,0 +1,70 @@
+extends layout
+
+block content
+  .post-wrapper
+    nav.nav-blog.border-top(role='navigation')
+      h4 Table of Contents:
+    // End of .nav-blog
+    article.post
+      #entry
+        header
+          h3.color(id='header-1')= title
+        small.entry-small
+          .entry-date Published on:
+            time(class='entry-time', datetime=post.date)  #{post.post_time_formatted}
+          .entry-comments
+            a(href="#blog-comments") Comments #{post.comments.length}
+          .entry-tags
+            for tag in post.tags
+              a(href='/posts/find/' + tag)= tag.replace('_', ' ')
+        | !{post.body}
+        .blog-footer
+          form(method='post', action=post.url + '/like', name='like_form')
+            label(for='button-like', class='button-like', onclick='like_form.submit()')
+              .icon
+              span Like
+              span= post.meta.votes
+            input(type='submit', name='button-like', class='input-like')
+          a(href='https://tippin.me/@AngelCasas93', class='bitcoin-tips', target='_blank')
+            .bitcoin-icon
+            span Tip in Bitcoin
+      #blog-comments
+        header
+          h4.color Comments
+        .comment-count #{post.comments.length} Comments.
+        ul.comment-ul
+          - var commentIndex = 1;
+          each comment in post.comments
+            - var time = new Date(comment.date)
+            li.border-bottom(id='comment-'+commentIndex)
+              .meta
+                .comment-number
+                  a(href="#comment-"+commentIndex)= commentIndex
+                span.author-name= comment.name
+                |  said on 
+                small= time.toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+              .quote
+                p= comment.content
+              - commentIndex += 1;
+          else
+            li Be the first to comment!
+        form#comments-form(method='POST', action=post.url + '/comment')
+          h4.color Leave your comment
+          label(for='name')
+            input(type='text', placeholder='Name (Optional)', maxlength=20, name='name')
+          label(for='content')
+            textarea(type='text', rows='5', cols='30', placeholder='Comment', name='content')
+          input(type='submit', value='Submit', class='form-button')
+      // End of #blog-comments
+    // End of .post
+    aside.tag_cloud
+    // End if .tag_cloud
+    script(type='text/javascript').
+      var nav = document.querySelector('.nav-blog');
+      var list = initTOC({
+        selector: 'h3, h4',
+        scope: '#entry',
+        prefix: 'header'
+      })
+      console.log(list.children)
+      nav.appendChild(list);

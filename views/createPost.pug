@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  header
+    h3.color Create new post
+  form(method='POST', action='/new')
+    label(for='title') Title
+    input(name='title', class='form-input', type='text', placeholder='Title', required)
+    label(for='content') Content
+    textarea(name='content', class='form-textarea', type='text', placeholder='Content', rows='10', cols='50')
+    label(for='preview') Preview
+    input(type='text', name='preview', placeholder='preview')
+    label(for='tags') Tags
+    input(name='tags', class='form-input', type='text', placeholder='Tags')
+    select(name='section', required)
+      option(value='ml') Machine Learning
+      option(value='bitcoin') Bitcoin
+      option(value='nature') Nature
+    input(type='submit', class='form-button', value='Submit')

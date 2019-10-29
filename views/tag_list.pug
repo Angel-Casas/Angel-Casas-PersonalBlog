@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  header
+    h2.color= tag.replace('_', ' ')
+  ul.preview-ul
+    each post in post_list
+      li.preview-li.border-bottom
+        article.post-preview
+          a(href=post.url)
+            h3 #{post.title}
+            time.post-date(date-time=post.date) #{post.post_time_formatted}
+            .entry-small
+              .entry-tags
+                for tag in post.tags
+                  a(href=tag)= tag.replace('_', ' ')
+    else
+      li There are no posts.    
+  // End of preview-ul

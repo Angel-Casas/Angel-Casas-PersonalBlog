@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  header
+    h2.color= title
+  a(href="https://www.goodreads.com/quotes/131363-self-education-is-i-firmly-believe-the-only-kind-of-education")
+    blockquote.outline
+      cite 
+        span.color “
+        | Self-education is, I firmly believe, the only kind of education there is.
+        span.color ”
+        p Isaac Asimov
+  p It is in the same spirit as that of Isaac Asimov that I want to show my process of learning.
+  p My interests have slowly taken me towards Computer Science and it is here that I will focus
+    |  most of my efforts.
+  p My curiosity has also pushed me towards Bitcoin as I believe it has a great potential and
+    |  great value towards the betterment of our privacy and freedom.
+  p For those who have an open mind and enjoy a good read on a wide range of topics regarding nature,
+    |  I have a section dedicated exclusively to it so please check it out!
+  if post
+    header
+      h3.color Random Post
+    article.post-preview
+      a(href=post.url)
+        h3 #{post.title}
+        time.post-date(date-time=post.date) #{post.post_time_formatted}

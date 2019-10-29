@@ -1,0 +1,80 @@
+doctype html
+html
+  head
+    title Ángel Casas Pescador - Personal Blog
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible', content='ie=edge')
+    link(rel='stylesheet', href='/stylesheets/reset.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.5.0/css/all.css', integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU', crossorigin='anonymous')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Playfair+Display&display=swap')
+    script(src='/javascripts/toc.js')
+    script(src='/javascripts/extra.js')
+    link(rel='icon', href='')
+  body
+    input#light-input.sr-only(type='checkbox', autocomplete='off')
+    label#light-label(for='light-input')
+      span Light | Dark
+    // light-Input dark/light mode
+    #loader-wrapper
+    // End of #loader-wrapper
+    #wrapper
+      header#main-header
+        h1.sr-only &Aacute;ngel Casas Pescador
+        a(href='/' title="Angel Casas Pescador")
+          .circle-icon-box
+            .circle.big
+            .circle.medium
+            .circle.small
+            .circle.tiny
+        nav#main-nav
+          ul#main-nav-ul
+            li.nav-li
+              a(href='/posts/ml') Machine Learning
+            li.nav-li
+              a(href='/posts/bitcoin') Bitcoin
+            li.nav-li
+              a(href='/posts/nature') Nature
+            li.nav-li
+              a(href='/books') Books
+            li.nav-li
+              a(href='/about') About
+      // End of #main-header
+      section#main-section
+        block content
+      footer#main-footer
+        .footer-personal.border-bottom
+          a(href='/' title="Angel Casas Pescador")
+            .circle-icon-box
+              .circle.big
+              .circle.medium
+              .circle.small
+              .circle.tiny
+          .footer-quote
+            blockquote
+              span.color &ldquo;
+              | Si no demolemos nuestros prejuicios, &iquest;c&oacute;mo podremos comprender aquello que desconocemos?
+              span.color &rdquo;
+        #footer-box
+          .footer-div
+            h4.color Copyright 2019, &Aacute;ngel Casas
+            p
+              | This work is licensed under a 
+              a(rel='license', href='http://creativecommons.org/licenses/by/4.0/') Creative Commons Attribution 4.0 International License
+              | .
+          .footer-div
+            h4.color Disclaimer
+            p
+              | Opinions expressed here are my own and may not reflect those of people I work with. Unless I&apos;m quoting someone, they&apos;re just my own views.
+          #footer-icon-box
+            h4.color Follow me:
+            #footer-icons
+              a(href='https://twitter.com/AngelCasas93', target='_blank')
+                .logo.twitter
+              a(href='https://github.com/Angel-Casas', target='_blank')
+                .logo.github
+              a(href='https://www.instagram.com/angelcasas.p/')
+                .logo.instagram
+      // End of #main-footer
+    // End of #wrapper

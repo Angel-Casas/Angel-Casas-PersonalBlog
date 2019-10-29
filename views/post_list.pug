@@ -1,0 +1,18 @@
+extends layout
+
+
+
+
+block content
+  header
+    h2.color= title
+  ul.preview-ul
+    each post in post_list
+      li.preview-li.border-bottom
+        article.post-preview
+          a(href=post.url)
+            h3 #{post.title}
+            time.post-date(date-time=post.date) #{post.post_time_formatted}
+    else
+      li There are no posts.    
+  // End of preview-ul
