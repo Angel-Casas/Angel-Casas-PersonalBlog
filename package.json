@@ -2,6 +2,9 @@
   "name": "acp-blog",
   "version": "0.0.0",
   "private": true,
+  "engines:": {
+    "node": "12.11.0"
+  },
   "description": "Personal Blog by Ángel Casas Pescador",
   "keywords": [
     "blog",
