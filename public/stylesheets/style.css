@@ -513,7 +513,7 @@ body {
   text-align: left;
   padding: .8rem 0.4rem;
 }
-#comments-form {
+form {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
@@ -521,7 +521,7 @@ body {
   padding: 1.2rem 0;
   width: 100%;
 }
-#comments-form label {
+form label {
   padding: 1.2rem 0;
 }
 input[type='text'] {
