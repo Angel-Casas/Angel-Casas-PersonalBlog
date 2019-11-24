@@ -1,8 +1,5 @@
 extends layout
 
-
-
-
 block content
   header
     h2.color= title
@@ -11,8 +8,14 @@ block content
       li.preview-li.border-bottom
         article.post-preview
           a(href=post.url)
-            h3 #{post.title}
+            h5 #{post.title}
             time.post-date(date-time=post.date) #{post.post_time_formatted}
+            .entry-small
+              .entry-tags
+                each tag in post.tags
+                  a(href='/posts/find/' + tag._id)= tag._id.toString().replace('_', ' ')
+                else
+                  | *
     else
       li There are no posts.    
   // End of preview-ul

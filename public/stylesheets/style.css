@@ -12,27 +12,28 @@
 /**** COMMON ATTRIBUTES ****/
 
 h1, h2, h3, h4, h5, h6 {
+  /* font-family: "Cinzel", "Times New Roman", serif; */
   font-family: "Playfair Display", "Times New Roman", serif;
   font-weight: normal;
   margin: 1rem 0;
 }
 h1 {
-  font-size: 3.5rem;
+  font-size: 4rem;
 }
 h2 {
-  font-size: 3rem;
+  font-size: 3.5rem;
 }
 h3 {
-  font-size: 2.5rem;
+  font-size: 3rem;
 }
 h4 {
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 h5 {
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 h6 {
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
 h2:target,
 h3:target,
@@ -52,7 +53,6 @@ blockquote {
   padding: 2.2rem 1.4rem;
   margin: 2.2rem;
   font-size: 1.6rem;
-  font-style: italic;
   line-height: 2.4rem;
 }
 blockquote a:hover {
@@ -168,7 +168,7 @@ body {
   color: black;
 }
 #light-input:checked ~ #wrapper .circle-icon-box .circle {
-  border: 2px solid black;
+  border: 1px solid black;
 }
 #light-input:checked ~ #wrapper .color {
   color: var(--main-blue);
@@ -193,8 +193,11 @@ body {
 #light-input:checked ~ #wrapper a:focus {
   color: var(--main-blue);
 }
-#light-input:checked ~ #wrapper .entry-small a {
+#light-input:checked ~ #wrapper a {
   text-decoration-color: var(--main-blue);
+}
+#light-input:checked ~ #wrapper .about li::before {
+  color: var(--main-blue);
 }
 /**** LOADER ****/
 
@@ -231,7 +234,7 @@ body {
   margin: 5px 0;
 }
 .circle-icon-box .circle {
-  border: 2px solid white;
+  border: 1px solid white;
   border-radius: 50%;
   position: absolute;
   top: 0;
@@ -295,6 +298,23 @@ body {
   border-bottom: 1px solid var(--light-grey);
   margin: auto 1.2rem;
 }
+#main-section .index-post {
+  width: 100%;
+}
+#main-section .index-tag-cloud {
+  width: 100%;
+}
+#main-section .index-tag-cloud a {
+  margin: 25px;
+  display: inline-block;
+  font-size: 2.2rem;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: var(--main-gold);
+}
+#main-section .index-tag-cloud a:hover {
+
+}
 .nav-blog {
   display: inline-block;
   width: 100%;
@@ -350,9 +370,11 @@ body {
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
+  overflow-x: scroll;
 }
 .post-preview:hover {
   background: rgba(0, 0, 0, .1);
+  transition: background .3s ease-in-out;
 }
 .post-preview > a {
   display: flex;
@@ -407,6 +429,15 @@ body {
   justify-content: space-around;
   align-items: center;
   color: var(--light-grey);
+}
+#bottle-payment-button {
+  border: 2px solid var(--light-grey) !important;
+  color: var(--light-grey) !important;
+  transition: all ease 0.3s;
+}
+#bottle-payment-button:hover {
+  border: 2px solid var(--main-gold) !important;
+  color: var(--main-gold) !important;
 }
 .input-like {
   display: none;
@@ -519,7 +550,6 @@ form {
   justify-content: space-between;
   align-items: center;
   padding: 1.2rem 0;
-  width: 100%;
 }
 form label {
   padding: 1.2rem 0;
@@ -550,12 +580,76 @@ input[type='submit']:hover {
   background-color: var(--main-gold);
   color: white;
 }
+/**** ABOUT ****/
+.about {
+  text-align: left;
+  padding: 5px;
+}
+.about h2,
+.about h3 {
+}
+.about .presentationImg {
+  display: block;
+  margin: auto;
+  width: 50%;
+  min-width: 300px;
+}
+.about .watermark {
+  display: block;
+  font-size: 3.8rem;
+  font-weight: bold;
+  font-family: 'Cinzel', serif;
+  color: var(--light-grey);
+  text-align: center;
+}
+.about a {
+  color: var(--main-gold);
+  font-weight: bold;
+}
+.about a:hover {
+  text-decoration: underline;
+}
+.about .presentation > ul {
+  margin: 2.5rem 0;
+}
+.about li {
+  list-style: none;
+  padding: 10px 0;
+  border-top: 1px solid var(--light-grey);
+}
+.about .presentation > ul > li::before {
+  content: '\2192';
+  margin-right: 5px;
+  font-size: 2.8rem;
+  color: var(--main-gold);
+}
+.about .presentation ul li ul > li {
+  list-style: lower-roman;
+  margin-left: 60px;
+}
+.about .row {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+}
+.about .column {
+  padding: 10px;
+  text-align: center;
+}
+.expandable:hover {
+  opacity: 0.6;
+  transition: all .5s ease-in-out;
+}
+.column img {
+  margin-top: 12px;
+  width: 300px;
+}
 /**** MAIN FOOTER ****/
 
 #main-footer {
   width: 100%;
   background-color: rgba(0, 0, 0, .1);
-  padding: 1.8rem 1.8rem 3.4rem 1.8rem;
+  padding: 1.8rem;
 }
 .footer-personal {
   display: flex;
@@ -568,6 +662,7 @@ input[type='submit']:hover {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
+  align-items: center;
 }
 #footer-icons {
   width: 300px;
@@ -576,42 +671,48 @@ input[type='submit']:hover {
   flex-flow: row nowrap;
   justify-content: space-between;
 }
+#main-footer .footer-quote {
+  opacity: .7;
+  transition: opacity .3s ease-in-out;
+}
+#main-footer .footer-quote span {
+  font-size: 3.8rem;
+  line-height: 0;
+  vertical-align: -1.8rem;
+}
 #main-footer blockquote {
+  position: relative;
   background-color: inherit;
   outline: none;
-  font-size: 1.8rem;
+  font-family: 'Cinzel', serif;
+  font-size: 1.6rem;
+  margin: 0;
+}
+#main-footer .footer-quote:hover {
+  opacity: 1;
 }
 #main-footer a {
   text-decoration: underline;
 }
+#footer-icons a {
+  position: relative;
+}
 #main-footer .logo {
-  width: 64px;
-  height: 64px;
+  width: 50px;
+  height: 50px;
+  fill: var(--light-grey);
   background-position: center;
+  transition: all .3s ease-in-out;
 }
-#main-footer .twitter {
-  background: url('/images/twitter-logo.png');
-  background-size: 64px 64px;
+#main-footer .logo:hover {
+  fill: var(--main-gold);
 }
-#main-footer .twitter:hover {
-  background: url('/images/twitter-logo-gold.png');
-  background-size: 64px 64px;
+#footer-icons .logo-info {
+  opacity: 0;
+  transition: all .3s ease-in-out;
 }
-#main-footer .github {
-  background: url('/images/github-logo.png');
-  background-size: 64px 64px;
-}
-#main-footer .github:hover {
-  background: url('/images/github-logo-gold.png');
-  background-size: 64px 64px;
-}
-#main-footer .instagram {
-  background: url('/images/instagram-logo.png');
-  background-size: 64px 64px;
-}
-#main-footer .instagram:hover {
-  background: url('/images/instagram-logo-gold.png');
-  background-size: 64px 64px;
+#footer-icons a:hover .logo-info {
+  opacity: 1;
 }
 /**** MEDIA QUERIES ****/
 
@@ -635,23 +736,24 @@ input[type='submit']:hover {
   .post-wrapper {
     flex-flow: row nowrap;
   }
+  .about .row {
+    flex-flow: row nowrap;
+  }
 }
 
 @media (min-width: 1000px) {
   .footer-personal {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
   }
-  .footer-personal a {
-    flex-grow: 1;
-  }
   .footer-quote {
-    flex-grow: 5;
+    flex-grow: 2;
   }
   #footer-box {
     flex-flow: row nowrap;
+    align-items: flex-end;
   }
   .footer-div {
     max-width: 400px;

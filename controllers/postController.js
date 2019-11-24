@@ -1,8 +1,10 @@
 var Blog = require('../models/postSchema');
 var Books = require('../models/bookSchema');
+var Tag = require('../models/tagSchema');
 var mongoose = require('mongoose');
 
-const { check, validationResult } = require('express-validator/check');
+const { body, validationResult } = require('express-validator/check');
+const { sanitizeBody } = require('express-validator/filter');
 
 var debug = require('debug')('posts');
 
@@ -16,23 +18,39 @@ exports.index = function(req, res) {
     // Get a random entry
     var random = Math.floor(Math.random() * count)
 
-    // Again query all posts but only fetch one offset by our random #
-    Blog.findOne().skip(random).exec(
-      function (err, result) {
-        if (err) {
-          debug('find index error:' + err);
-          return next(err);
-        }
-        // On success
-        res.render('index', {title: 'Welcome', post: result});
-      });
+    async.parallel({
+      // Again query all posts but only fetch one offset by our random #
+      post: function(callback) {
+        Blog.findOne().
+          skip(random).
+          populate('tags').
+          exec(callback);
+      },
+      // Find all tags for display in Index page
+      tags: function(callback) {
+        Tag.find({}).
+          populate({
+            path: 'post',
+            populate: {
+              path: 'tags',
+              model: 'Tag'
+            }
+          }).
+          exec(callback);
+      }
+    }, function(err, results) {
+      if (err) { return next(err); }
+      // Successful so render
+      res.render('index', {title: 'Welcome', post: results.post, tag_list: results.tags});
+    });
   });
 };
 
 // Display list of all Posts
 exports.post_list = function (req, res, next) {
-  Blog.find({})
-    .exec(function(err, list_posts) {
+  Blog.find({}).
+    populate('tags').
+    exec(function(err, list_posts) {
       if (err) {
         debug('find post list error:' + err);
         return next(err);
@@ -44,7 +62,9 @@ exports.post_list = function (req, res, next) {
 
 // Display list of all posts in section
 exports.post_section_list = function (req, res, next) {
-  Blog.find({section: req.params.section}, function(err, list_section_posts) {
+Blog.find({section: req.params.section}).
+  populate('tags').
+  exec(function(err, list_section_posts) {
     if (err) {
       debug('find post section list error:' + err);
       return next(err);
@@ -56,28 +76,39 @@ exports.post_section_list = function (req, res, next) {
 
 // Display list of all posts in specified tag
 exports.post_tag_list = function (req, res, next) {
-  Blog.find({tags: req.params.tag}, function(err, list_tag_posts) {
-    if (err) {
-      debug('find post tag list error:' + err);
-      return next(err);
-    }
-    // On success
-    res.render('tag_list', {tag: req.params.tag, post_list: list_tag_posts});
-  });
+  Tag.findById(req.params.tag).
+    populate({
+      path: 'post',
+      populate: {
+        path: 'tags',
+        model: 'Tag'
+      }
+    }).
+    exec(function(err, tag_list) {
+      if (err) {
+        debug('find post tag list error:' + err);
+        return next(err);
+      }
+      // On success
+      console.log(tag_list.post.length);
+      res.render('tag_list', { title: req.params.tag, tag_list: tag_list, posts: tag_list.post });
+    });
 }
 
 // Display post instance
 exports.post_instance = function(req, res, next) {
   if (mongoose.Types.ObjectId.isValid(req.params.id)) {
     debug('Valid Id');
-    Blog.findById(req.params.id, function (err, post) {
-      if (err) {
-        debug('findById post instance error:' + err);
-        return next(err);
-      }
-      // On success
-      res.render('post', {title: post.title, post: post});
-    });
+    Blog.findById(req.params.id).
+      populate('tags').
+      exec(function (err, post) {
+        if (err) {
+          debug('findById post instance error:' + err);
+          return next(err);
+        }
+        // On success
+        res.render('post', {title: post.title, post: post});
+      });
   } else {
     debug('Invalid Id');
     res.render('error');
@@ -106,7 +137,7 @@ exports.post_comment_get = function(req, res) {
 exports.post_comment_post = function(req, res, next) {
   // Validation and Sanitation for POST form request
 
-  check('content').isLength({ min: 1})
+  body('content').isLength({ min: 1})
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -166,48 +197,107 @@ exports.post_create_get = function(req, res) {
 }
 
 // handle create post on POST
-exports.post_create_post = function(req, res, next) {
-  Blog.findOne({title: req.body.title}, function(err, post) {
-    if (err) {
-      debug('post create error:' + err);
-      return next(err);
+exports.post_create_post = [
+
+  // Validate fields
+  body('title').isLength({ min: 1 }).trim().withMessage('Title must be specified.'),
+  body('content').isLength({ min: 1 }).trim().withMessage('Content must be specified.'),
+  body('preview').optional().isLength({ min: 1 }).trim().withMessage('Preview must be specified.'),
+  body('tags').optional().isLength({ min: 1 }).trim().withMessage('Tags must be specified'),
+
+  // Sanitize fields
+  sanitizeBody('title').escape(),
+  sanitizeBody('preview').escape(),
+
+  // Process request after validation and sanitation.
+  async (req, res, next) => {
+    console.log('Attempting to create new post');
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render form again with sanitized values/error messages.
+      res.render('createPost', { errors: errors.array() });
+      return;
     }
-    if (post) {
-      // Already a post with that title
-      res.send('POST title already in db: ' + post);
-    } else {
-      let tags = [];
-      debug('Attempting to create new post');
-      debug(req.body);
-      for (var tag of req.body.tags.split(' ')) {
-        tags.push(tag);
-      }
-      let postdetail = {
-        title: req.body.title,
-        body: req.body.content,
-        preview: req.body.preview,
-        tags: tags,
-        section: req.body.section
-      };
+    else {
+      // Data from form is valid.
 
-      var post = new Blog(postdetail);
-
-
-      post.save(function (err) {
-        if (err) {
-          debug('post create save error:' + err);
-          next(err, null);
-          return;
+      // Create post object with escaped and trimmed data.
+      var post = new Blog(
+        {
+          title: req.body.title,
+          body: req.body.content,
+          preview: req.body.preview,
+          section: req.body.section
+        });
+      // Create tags object and save to db.
+      var tags = req.body.tags.split(' ');
+      for (let i = 0; i < tags.length; i++) {
+        const tagname = tags[i];
+        const existingTag = await Tag.findById(tagname);
+        if (!existingTag) {
+          console.log('New tag found!');
+          var tag = await new Tag({
+            _id: tagname,
+            post: post._id
+          }).save();
+          post.tags.push(tag);
+        } else {
+          Tag.findById(tagname).
+            populate({
+              path: 'post',
+              select: 'tags',
+              populate: {
+                path: 'tags',
+                model: 'Tag'
+              }
+            }).
+            exec(function (err, tag) {
+            if (err) {
+              debug('find id error:' + err);
+              return next(err);
+            }
+            // On success
+            console.log('Old tag found!');
+            tag.post.push(post);
+            post.tags.push(tag);
+            tag.save(function (err) {
+              if (err) {
+                debug('update tag posts error:' + err);
+                next(err, null);
+                return;
+              }
+              console.log("updated tag posts: " + tag.post);
+              debug('Successfully updated tag posts');
+            });
+          });
         }
-        // On success
-        debug('New Post: ' + post);
+      }
+
+      // Save post object to db.
+      await post.save(function(err) {
+        if (err) { return next(err); }
+        // Successful so redirect to new post
+        console.log('New Post: ' + post);
         res.redirect('/');
       });
     }
-  });
-}
+  }
+];
+
 
 // Handle post update on POST
 exports.post_update_get = function (req, res, next) {
   res.send('NOT IMPLEMENTED: POST update');
 };
+
+// Handle about section on GET
+exports.about_section_get = function (req, res, next) {
+  res.render('about');
+}
+
+// Handle projects section on GET
+exports.projects_section_get = function (req, res, next) {
+  res.send('NOT IMPLEMENTED: GET projects');
+}

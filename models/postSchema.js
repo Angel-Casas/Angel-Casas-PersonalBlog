@@ -12,7 +12,7 @@ var postSchema = new Schema({
   date: {type: Date, default: Date.now },
   cover: {contentType: String, data: Buffer },
   hidden: Boolean,
-  tags: [String],
+  tags: [{type: Schema.Types.ObjectId, ref: 'Tag'}],
   meta: {
     votes: {type: Number, default: 0},
     favs: {type: Number, default: 0}

@@ -3,7 +3,7 @@ extends layout
 block content
   .post-wrapper
     nav.nav-blog.border-top(role='navigation')
-      h4 Table of Contents:
+      h5 Table of Contents:
     // End of .nav-blog
     article.post
       #entry
@@ -15,19 +15,17 @@ block content
           .entry-comments
             a(href="#blog-comments") Comments #{post.comments.length}
           .entry-tags
-            for tag in post.tags
-              a(href='/posts/find/' + tag)= tag.replace('_', ' ')
+            each tag in post.tags
+              a(href='/posts/find/' + tag._id)= tag._id.toString().replace('_', ' ')
         | !{post.body}
         .blog-footer
           form(method='post', action=post.url + '/like', name='like_form')
-            label(for='button-like', class='button-like', onclick='like_form.submit()')
+            .button-like
               .icon
               span Like
               span= post.meta.votes
-            input(type='submit', name='button-like', class='input-like')
-          a(href='https://tippin.me/@AngelCasas93', class='bitcoin-tips', target='_blank')
-            .bitcoin-icon
-            span Tip in Bitcoin
+              input(type='submit', name='button-like', class='input-like')
+          #bottle-payment-button(data-service="bottle" data-name="%C3%81ngel%20Casas%20Pescador" data-avatar="https://cdn.bottle.li/userimg/01aaaa547eefe42d8b723cb20f6d363712eb7c4322fa470476d0842b6f5a161f.jpg" data-username="28Zzw6HN8tFHKxqLvt2XEVtsi32rMZH4oZGovWQPay7tE" data-text="tip" data-url="https://pay.bottle.li/send/social/")
       #blog-comments
         header
           h4.color Comments
@@ -58,7 +56,9 @@ block content
       // End of #blog-comments
     // End of .post
     aside.tag_cloud
+    
     // End if .tag_cloud
+    script(type='text/javascript' src="https://cdn.bottle.li/button/bb.min.js")
     script(type='text/javascript').
       var nav = document.querySelector('.nav-blog');
       var list = initTOC({

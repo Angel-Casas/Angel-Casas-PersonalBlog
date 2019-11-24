@@ -9,9 +9,10 @@ var bookController = require('../controllers/bookController');
 router.get('/', postController.index);
 
 // About page route
-router.get('/about', function (req, res) {
-  res.send('About');
-});
+router.get('/about', postController.about_section_get);
+
+// Projects page route
+router.get('/projects', postController.projects_section_get);
 
 // POST ROUTES
 
