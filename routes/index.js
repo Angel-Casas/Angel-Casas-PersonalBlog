@@ -40,14 +40,17 @@ router.post('/posts/:section/:id/comment', postController.post_comment_post);
 // POST request for like comment
 router.post('/posts/:section/:id/like', postController.post_like_post);
 
-// GET request for updating post
-router.get('/posts/:section:id/update', postController.post_update_get);
-
 // GET request for creating post PRIVATE
 router.get('/new', postController.post_create_get);
 
 // POST request for creating post PRIVATE
 router.post('/new', postController.post_create_post);
+
+// GET request for editing post PRIVATE
+router.get('/posts/:section/:id/edit', postController.post_edit_get);
+
+// POST request for editing post PRIVATE
+router.post('/posts/:section/:id/edit', postController.post_edit_post);
 
 // BOOKS ROUTES
 
@@ -56,5 +59,8 @@ router.get('/books', bookController.books_list);
 
 // GET request for books create
 router.get('/books/create', bookController.books_create_get);
+
+// POST request for books create
+router.post('/books/create', bookController.books_create_post);
 
 module.exports = router;

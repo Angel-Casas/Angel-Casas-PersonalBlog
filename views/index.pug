@@ -11,30 +11,36 @@ block content
         span.color ”
         p Isaac Asimov
   p It is in the same spirit as that of Isaac Asimov that I want to show my process of learning.
+  p Writting a blog seems like the most rewarding experience in terms of learning the topic at hand 
+    | and the most important in terms of open source and free access of information.
   p My interests have slowly taken me towards Computer Science and it is here that I will focus
     |  most of my efforts.
   p My curiosity has also pushed me towards Bitcoin as I believe it has a great potential and
     |  great value towards the betterment of our privacy and freedom.
   p For those who have an open mind and enjoy a good read on a wide range of topics regarding nature,
     |  I have a section dedicated exclusively to it so please check it out!
+  p I also have a section dedicated to books and almost every book I find valuable I 
+    | will dedicate a few lines to summarise it's value and a personal, subjective comment on why it deserves 
+    | your attention.
   if post
     .index-post
       header
         h3.color Random Post
       article.post-preview
         a(href=post.url)
-          h3 #{post.title}
+          h4 #{post.title}
           time.post-date(date-time=post.date) #{post.post_time_formatted}
-          .entry-small
-            .entry-tags
-              each tag in post.tags
-                a(href='/posts/find/' + tag._id)= tag._id.toString().replace('_', ' ')
-              else
-                | *
-  if tag_list.length
+        .entry-small
+          .entry-tags
+            each tag in post.tags
+              a(href='/posts/find/' + tag)= tag.toString().replace('_', ' ')
+            else
+              | *
+        p.preview= post.preview
+  if tags.length
     .index-tag-cloud
       header
-        h3.color Tag Cloud
+        h3.color Tags
       .tag-cloud
-        for tag in tag_list
-          a(href='/posts/find/' + tag._id)= tag._id.toString().replace('_', ' ')
+        for tag in tags
+          a(href='/posts/find/' + tag)= tag.toString().replace('_', ' ')

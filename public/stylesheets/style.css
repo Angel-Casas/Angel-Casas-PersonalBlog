@@ -199,6 +199,9 @@ body {
 #light-input:checked ~ #wrapper .about li::before {
   color: var(--main-blue);
 }
+#light-input:checked ~ #wrapper #entry li::before {
+  color: var(--main-blue);
+}
 /**** LOADER ****/
 
 #loader-wrapper {
@@ -359,18 +362,18 @@ body {
 }
 .preview-li {
   width: 100%;
-  height: 100px;
+  height: 100%;
   position: relative;
   overflow: hidden;
 }
 .post-preview {
   width: 100%;
-  height: 100px;
+  height: 100%;
+  min-height: 200px;
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
-  overflow-x: scroll;
 }
 .post-preview:hover {
   background: rgba(0, 0, 0, .1);
@@ -381,9 +384,12 @@ body {
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  height: 100%;
   width: 100%;
   padding: 0 2.4rem;
+}
+.post-preview .preview {
+  display: block;
+  width: 100%;
 }
 .post-date {
   font-size: 1.4rem;
@@ -402,8 +408,9 @@ body {
   min-width: 300px;
 }
 .entry-small {
-  display: block;
-  margin: 2.4rem 0;
+  display: inline-block;
+  width: 100%;
+  flex-grow: 1;
 }
 .entry-small a {
   padding: 0 .6rem;
@@ -416,6 +423,31 @@ body {
 }
 #entry p {
   text-align: left;
+}
+#entry ul {
+  text-align: left;
+  margin: 2.5rem 0;
+}
+#entry ul li {
+  list-style: none;
+  padding: 10px 0;
+}
+#entry > ul > li::before {
+  content: '\2192';
+  margin-right: 5px;
+  font-size: 2.8rem;
+  color: var(--main-gold);
+}
+#entry ul li ul > li {
+  list-style: lower-roman;
+  margin-left: 60px;
+}
+#entry a {
+  text-decoration: underline;
+  text-decoration-color: var(--main-gold);
+}
+#entry blockquote a {
+  text-decoration: none;
 }
 .drop-cap {
   font-size: 5.4rem;
@@ -458,7 +490,7 @@ body {
 .button-like .icon {
   width: 14px;
   height: 14px;
-  background: url('/images/like.png');
+  background: url('/images/like-red.png');
   background-size: 14px 14px;
   display: inline-block;
 }
@@ -580,7 +612,85 @@ input[type='submit']:hover {
   background-color: var(--main-gold);
   color: white;
 }
+
+/**** BOOKS ****/
+
+.books-box {
+  width: 100%;
+}
+.books-box .book-section {
+  margin: 1.5rem 0;
+}
+.books-box .book-element {
+  text-align: left;
+  list-style: upper-roman;
+  font-size: 1.8rem;
+  padding: 1rem;
+}
+.books-box a {
+  text-decoration: underline;
+  text-decoration-color: var(--main-gold);
+}
+
+
+/**** PROJECTS ****/
+
+.ml-projects {
+  width: 100%;
+}
+.app-projects {
+  width: 100%;
+}
+.project-intro {
+  margin: 2rem 0;
+}
+.box-area {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+.box {
+  width: 350px;
+  height: 350px;
+}
+.box:hover .detail {
+  opacity: 1;
+}
+.box a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.box img {
+  border-radius: 5px;
+}
+.box .detail {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  flex-flow: column nowrap;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  color: white;
+  width: 100%;
+  height: 100%;
+  padding: 0 .5rem;
+  text-align: center;
+  vertical-align: middle;
+  transition: all .3s ease-in-out;
+  background-color: rgba(0, 0, 0, .8);
+}
+.box .detail .alert {
+  color: var(--main-red);
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+
 /**** ABOUT ****/
+
 .about {
   text-align: left;
   padding: 5px;
@@ -730,8 +840,13 @@ input[type='submit']:hover {
   #main-nav-ul {
     flex-flow: row nowrap;
   }
-  .preview-li a {
+  .post-preview > a {
     flex-flow: row nowrap;
+    width: auto;
+    flex-grow: 2;
+  }
+  .entry-small {
+    width: auto;
   }
   .post-wrapper {
     flex-flow: row nowrap;

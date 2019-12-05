@@ -9,7 +9,7 @@ block content
       a.color(href='images/personal/DSC_0061.jpg')
         img.presentationImg(src='images/personal/DSC_0061.jpg' alt='Angel en Osorio.')
       p
-        |  Currently working on improving my knowledge about Machine Learning and Deep Learning which makes this blog an informative and pedagogical experience.
+        |  Hi, my name is Angel and I am currently working on improving my knowledge about Machine Learning and Deep Learning which makes this blog an informative and pedagogical experience.
         br
         | To achieve this I have been enrolled in some specific Online
         | Courses, related to the field of Artificial Intelligence and programming in general.
@@ -99,4 +99,18 @@ block content
             img(src='images/thumbnails/lomax_copia_tn.jpg' alt='Waves crashing in the Sunset')
       // end .row
     // end .images-group
-  // end .post
+    header
+      h3#contact.color Contact
+    h4.color Email
+    a(href='mailto:angel.casas@protonmail.com', target='_blank', rel='noopener noreferrer') angel.casas@protonmail.com
+    form#contact-form(method='POST', action='/about/contact')
+      h4.color Direct Message
+      label(for='name')
+        input(type='text', placeholder='Name', maxlength=20, name='name')
+      label(for='email')
+        input(type='text', placeholder='Email', maxlength=50, name='email')
+      label(for='content')
+        textarea(type='text', rows='5', cols='30', placeholder='Message', name='content')
+      input(type='submit', value='Submit', class='form-button')
+    
+  // end .about

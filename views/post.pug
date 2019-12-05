@@ -16,7 +16,7 @@ block content
             a(href="#blog-comments") Comments #{post.comments.length}
           .entry-tags
             each tag in post.tags
-              a(href='/posts/find/' + tag._id)= tag._id.toString().replace('_', ' ')
+              a(href='/posts/find/' + tag)= tag.toString().replace('_', ' ')
         | !{post.body}
         .blog-footer
           form(method='post', action=post.url + '/like', name='like_form')
@@ -25,7 +25,7 @@ block content
               span Like
               span= post.meta.votes
               input(type='submit', name='button-like', class='input-like')
-          #bottle-payment-button(data-service="bottle" data-name="%C3%81ngel%20Casas%20Pescador" data-avatar="https://cdn.bottle.li/userimg/01aaaa547eefe42d8b723cb20f6d363712eb7c4322fa470476d0842b6f5a161f.jpg" data-username="28Zzw6HN8tFHKxqLvt2XEVtsi32rMZH4oZGovWQPay7tE" data-text="tip" data-url="https://pay.bottle.li/send/social/")
+          #bottle-payment-button(data-service="bottle" data-color='#ddb64e' data-textColor="#ddb64e"  data-name="%C3%81ngel%20Casas%20Pescador" data-avatar="https://cdn.bottle.li/userimg/01aaaa547eefe42d8b723cb20f6d363712eb7c4322fa470476d0842b6f5a161f.jpg" data-username="28Zzw6HN8tFHKxqLvt2XEVtsi32rMZH4oZGovWQPay7tE" data-text="tip" data-url="https://pay.bottle.li/send/social/")
       #blog-comments
         header
           h4.color Comments
