@@ -32,11 +32,7 @@ postSchema.virtual('post_time_formatted').get(function() {
 
 // Virtual for post's tags list to String
 postSchema.virtual('tag_list').get(function() {
-  var string = new String;
-  this.tags.forEach((tag) => {
-    string += tag + ' ';
-  });
-  return string;
+  return this.tags.join(' ');
 })
 
 // Export model

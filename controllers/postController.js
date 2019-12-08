@@ -10,6 +10,7 @@ var debug = require('debug')('posts');
 
 var async = require('async');
 
+// Display index landing page
 exports.index = function(req, res) {
   var tagArray = [];
   async.series([
@@ -170,12 +171,14 @@ exports.post_comment_post = function(req, res, next) {
 
 // Display post like on POST
 exports.post_like_post = function(req, res, next) {
+  console.log('Clicked');
   Blog.findById(req.params.id, function (err, post) {
     if (err) {
       console.log('post like error:' + err);
       return next(err)
     }
     // On success
+    console.log('Clicked');
     post.meta.votes += 1;
     post.save(function (err) {
       if (err) {

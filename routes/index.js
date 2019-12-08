@@ -37,7 +37,7 @@ router.get('/posts/:section/:id/comment', postController.post_comment_get);
 // POST request for post comment
 router.post('/posts/:section/:id/comment', postController.post_comment_post);
 
-// POST request for like comment
+// GET request for like comment
 router.post('/posts/:section/:id/like', postController.post_like_post);
 
 // GET request for creating post PRIVATE

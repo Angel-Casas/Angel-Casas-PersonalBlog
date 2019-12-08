@@ -70,6 +70,11 @@ blockquote span {
 .left {
   float: left;
 }
+.align-right {
+  display: inline;
+  float: right;
+  margin-left: 1.5rem;
+}
 .border-bottom {
   border-bottom: 1px solid var(--main-gold);
 }
@@ -86,6 +91,13 @@ blockquote span {
   outline: 1px solid var(--main-gold);
   outline-offset: 5px;
 }
+.caption-text {
+  font-style: italic;
+}
+.underline {
+  text-decoration: underline;
+  text-decoration-color: var(--main-gold);
+}
 summary {
   cursor: pointer;
 }
@@ -101,6 +113,9 @@ p {
 }
 .error:hover {
   text-decoration: underline;
+}
+figure {
+  background-color: rgba( 0, 0, 0, .1);
 }
 
 /**** WRAPPER ****/
@@ -202,6 +217,9 @@ body {
 #light-input:checked ~ #wrapper #entry li::before {
   color: var(--main-blue);
 }
+#light-input:checked ~ #wrapper .underline {
+  text-decoration-color: var(--main-blue);
+}
 /**** LOADER ****/
 
 #loader-wrapper {
@@ -282,7 +300,7 @@ body {
 #main-section {
   width: 100%;
   height: 100%;
-  max-width: 1200px;
+  max-width: 1500px;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
@@ -449,6 +467,26 @@ body {
 #entry blockquote a {
   text-decoration: none;
 }
+#entry .intro-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  min-height: 400px;
+  padding: 2.5rem .5rem;
+  margin: 1rem 0;
+}
+#entry .intro-box blockquote {
+  background-color: rgba(0, 0, 0, .7) !important;
+  color: white !important;
+}
+#entry img {
+  display: block;
+  margin: 0 auto;
+}
 .drop-cap {
   font-size: 5.4rem;
   line-height: 1.8rem;
@@ -462,16 +500,7 @@ body {
   align-items: center;
   color: var(--light-grey);
 }
-#bottle-payment-button {
-  border: 2px solid var(--light-grey) !important;
-  color: var(--light-grey) !important;
-  transition: all ease 0.3s;
-}
-#bottle-payment-button:hover {
-  border: 2px solid var(--main-gold) !important;
-  color: var(--main-gold) !important;
-}
-.input-like {
+#input-like {
   display: none;
 }
 .button-like {
@@ -521,33 +550,11 @@ body {
   background: url('/images/like-red.png');
   background-size: 14px 14px;
 }
-
-.bitcoin-tips {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-around;
-  align-items: center;
-  transition: all ease 0.3s;
-}
-.bitcoin-tips span {
-  white-space: nowrap;
-}
-
-.bitcoin-icon {
-  background: url('/images/bitcoin-icon.png');
-  width: 32px;
-  height: 32px;
-  background-size: 32px 32px;
-}
-.bitcoin-tips:hover .bitcoin-icon {
-  background: url('/images/bitcoin-icon-gold.png');
-  background-size: 32px 32px;
-}
-
-.share-box {
+#share-box .a2a_kit {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
 }
 .comment-ul {
   list-style: none;
@@ -611,6 +618,23 @@ input[type='submit'] {
 input[type='submit']:hover {
   background-color: var(--main-gold);
   color: white;
+}
+
+.donation-box {
+  width: 100%;
+  background-color: rgba(0, 0, 0, .1);
+  padding: 1rem;
+}
+.donation-text p {
+  font-size: 1.6rem;
+  margin: 1rem 0;
+  word-wrap: break-word;
+}
+.donation-button {
+  border: 1px solid var(--main-gold);
+  border-radius: 5px;
+  padding: .5rem;
+  margin: 1rem;
 }
 
 /**** BOOKS ****/
@@ -827,7 +851,7 @@ input[type='submit']:hover {
 /**** MEDIA QUERIES ****/
 
 /* Only stick if you can fit */
-@media (min-width: 600px) {
+@media (min-width: 1000px) {
   #main-header {
     flex-flow: row nowrap;
   }
@@ -835,7 +859,7 @@ input[type='submit']:hover {
     position: -webkit-sticky;
     position: sticky;
     top: 3rem;
-    max-width: 200px;
+    max-width: 300px;
   }
   #main-nav-ul {
     flex-flow: row nowrap;
@@ -851,12 +875,13 @@ input[type='submit']:hover {
   .post-wrapper {
     flex-flow: row nowrap;
   }
+  .donation-box {
+    max-width: 300px;
+    margin-left: 1.5rem;
+  }
   .about .row {
     flex-flow: row nowrap;
   }
-}
-
-@media (min-width: 1000px) {
   .footer-personal {
     display: flex;
     flex-flow: row nowrap;
