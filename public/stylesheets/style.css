@@ -302,7 +302,7 @@ body {
   height: 100%;
   max-width: 1500px;
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column nowrap;
   justify-content: space-around;
   align-items: center;
   margin-top: 2.2rem;
