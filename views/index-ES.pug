@@ -1,0 +1,44 @@
+extends layout-ES
+
+block content
+  header
+    h2.color= title
+  blockquote.outline
+    cite 
+      span.color “
+      | La autoeducación es, estoy convencido, el único tipo de educación que existe
+      span.color ”
+      p Isaac Asimov
+  p Es en el mismo espíritu que el de Isaac Asimov con el que quiero enseñar mi proceso de aprendizaje.
+  p Escribir un blog me pareció la experiencia mas enriquiecedora con respecto a aprender un tema determinado 
+    | y la forma más importante en terminos de acceso libre a informacion y de apoyo al Código Abierto.
+  p Mis intereses me han llevado lentamente hacia la Ciencias de la Comutación y es aquí donde centraré todos mis esfuerzos.
+  p Mi curiosidad también me ha empujado hacia la tecnología Bitcoin pues creo firmemente que tiene un gran potencial 
+    | y aporta un gran valor hacia el mejoramiento de nuestra privacidad y libertad.
+  p Para aquellos que tengan una mente abierta y les guste una buena lectura sobre una amplia variedad de temas relacionados 
+    | con la naturaleza, tengo una sección dedicada exclusivamente a ella asi que por favor no duden en descubrirla!
+  p También tengo una sección dedicada a los libros que he ido encontrando a lo largo de mi vida y aquellos en los que 
+    | he encontrado un gran valor, por lo que les voy dedicando algunas lineas a modo de resumen y un pequeño y personal parrafo 
+    | sobre porqué les podría ser de interés.
+  if post
+    .index-post
+      header
+        h3.color Post Aleatorio
+      article.post-preview
+        a(href="/ES/" + post.url)
+          h4= post.español.title
+          time.post-date(date-time=post.date) #{post.post_time_formatted}
+        .entry-small
+          .entry-tags
+            each tag in post.tags
+              a(href='/ES/posts/find/' + tag)= tag.toString().replace('_', ' ')
+            else
+              | *
+        p.preview= post.español.preview
+  if tags.length
+    .index-tag-cloud
+      header
+        h3.color Tags
+      .tag-cloud
+        for tag in tags
+          a(href='/ES/posts/find/' + tag)= tag.toString().replace('_', ' ')

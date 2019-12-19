@@ -12,15 +12,16 @@ var app = express();
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
-// var dev_db_url = 'mongodb://localhost:27017/Blog';
-var dev_db_url = 'mongodb+srv://Admin:75tofATiF9UNWcJ6@cluster0-qldfs.mongodb.net/blog_database?retryWrites=true&w=majority';
+var dev_db_url = 'mongodb://localhost:27017/Blog';
+// var dev_db_url = 'mongodb+srv://Admin:75tofATiF9UNWcJ6@cluster0-qldfs.mongodb.net/blog_database?retryWrites=true&w=majority';
 var mongoDB = process.env.MONGODB_URI || dev_db_url;
 const option = {
     socketTimeoutMS: 90000,
     keepAlive: true,
     reconnectTries: 30000,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 };
 mongoose.connect(mongoDB, option).then(function(){
     //connected successfully

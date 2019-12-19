@@ -1,0 +1,109 @@
+extends layout-EN
+
+block content
+  .post-wrapper
+    nav.nav-blog.border-top(role='navigation')
+      h5 Table of Contents:
+    // End of .nav-blog
+    article.post
+      #entry
+        header
+          h3.color(id='header-1')= post.english.title
+        small.entry-small
+          .entry-date Published on:
+            time(class='entry-time', datetime=post.date)  #{post.post_time_formatted}
+          .entry-comments
+            a(href="#blog-comments") Comments #{post.comments.length}
+          .entry-tags
+            each tag in post.tags
+              a(href='/EN/posts/find/' + tag)= tag.toString().replace('_', ' ')
+          .entry-translate
+             //- #google_translate_element
+        | !{post.english.body}
+        .blog-footer
+          form(method='POST', action=post.url + '/like')
+            label.button-like(for='input-like')
+              span.icon
+              span Like
+              span= post.meta.votes
+              input(type='submit', value='Submit', name='input-like', id='input-like')
+        #share-box
+          h5.color Share this
+          .a2a_kit.a2a_kit_size_32.a2a_default_style
+            a.a2a_button_facebook
+            a.a2a_button_twitter
+            a.a2a_button_email
+            a.a2a_button_pocket
+            a.a2a_button_whatsapp
+      #blog-comments
+        header
+          h4.color Comments
+        .comment-count #{post.comments.length} Comments.
+        ul.comment-ul
+          - var commentIndex = 1;
+          each comment in post.comments
+            - var time = new Date(comment.date)
+            li.border-bottom(id='comment-'+commentIndex)
+              .meta
+                .comment-number
+                  a(href="#comment-"+commentIndex)= commentIndex
+                span.author-name= comment.name
+                |  said on 
+                small= time.toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+              .quote
+                p= comment.content
+              - commentIndex += 1;
+          else
+            li Be the first to comment!
+        form#comments-form(method='POST', action=post.url + '/comment')
+          h4.color Leave your comment
+          label(for='comment-name')
+            input(type='text', placeholder='Name (Optional)', maxlength=20, id='comment-name')
+          label(for='comment-content')
+            textarea(type='text', rows='5', cols='30', placeholder='Comment', id='comment-content')
+          input(type='submit', value='Submit', class='form-button')
+      // End of #blog-comments
+    // End of .post
+    aside.donation-box.border-top
+      h4.color Donating = Involvement
+      .donation-text
+        p I pour great amounts of time, effort, though and resources into growing this blog and keeping all the content free forever (and ad-free). 
+        p This requires many hours a month to research and compile all the information necessary to produce each post and this leads to a 
+          | high need for income in order to become sustainable and to keep improving. If you find joy and value what is being produced here, 
+          | please consider becoming a Sustaining Patron with a recurring monthly donation of your choosing between a cup of coffee and a good lunch.
+          | Your support helps keep free, public and valuable articles going and it really matters.
+        .donation-amount
+          h5.color MONTHLY DONATION
+          p $3 / month
+          p $5 / month
+          p $7 / month
+          p $10 / month
+          p $25 / month
+          a.donation-button START NOW
+          h5.color ONE-TIME DONATION
+          p You can also become a one-time Supporter by donating a single time with any amount you want:
+          a.donation-button GIVE NOW
+        .donation-bitcoin
+          h5.color Bitcoin
+          p If you enjoy the Bitcoin experience you can donate to this Bitcoin address directly:
+          p 3BMEXXLP2V9W86TK75wUzcS3MLUKixL28k
+        p Want to cancel a recurring donation?
+        a.underline(href='') Go Here.
+          
+        
+    // End if .donation-box
+    script(async src="https://static.addtoany.com/menu/page.js")
+    script(type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit")
+    script(type="text/javascript").
+      function googleTranslateElementInit() {
+       new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+      }
+    script(type='text/javascript').
+      var nav = document.querySelector('.nav-blog');
+      var list = initTOC({
+        selector: 'h3, h4',
+        scope: '#entry',
+        prefix: 'header'
+      })
+      console.log(list.children)
+      nav.appendChild(list);

@@ -2,7 +2,13 @@ var books = require('../models/bookSchema');
 
 // Display list of all book items.
 exports.books_list = function(req, res) {
-  res.render('books');
+  if (req.params.lang === 'EN') {
+    console.log('English');
+    res.render('books-EN')
+  } else {
+    console.log('ESPAÑOL')
+    res.render('books-ES');
+  }
 };
 
 // Handle book create on GET.

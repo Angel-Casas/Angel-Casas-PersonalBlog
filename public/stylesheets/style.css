@@ -114,6 +114,7 @@ p {
   text-decoration: underline;
 }
 figure {
+  padding: 1.5rem 0;
   background-color: rgba( 0, 0, 0, .1);
 }
 
@@ -139,6 +140,39 @@ body {
   align-items: center;
   width: 100%;
   min-height: 100%;
+}
+#language-label {
+  display: block;
+  position: fixed;
+  top: 0;
+  right: 10px;
+  font-size: 1.2rem;
+  margin-top: 5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: white;
+}
+#language-label span {
+  position: relative;
+}
+#language-label span::after {
+  content: '';
+  width: 30%;
+  height: 2px;
+  background: white;
+  position: absolute;
+  bottom: -5px;
+  right: 15px;
+  transition: all .3s ease-in-out;
+}
+#language-label:hover span::after {
+  right: 0px;
+}
+#language-input:checked + #language-label span::after {
+  right: 60px;
+}
+#language-input:checked + #language-label:hover span::after {
+  right: 80px;
 }
 #light-label {
   display: block;
@@ -209,6 +243,12 @@ body {
 }
 #light-input:checked ~ #wrapper a {
   text-decoration-color: var(--main-blue);
+}
+#light-input:checked ~ #language-label {
+  color: black;
+}
+#light-input:checked ~ #language-label span::after {
+  background: black;
 }
 #light-input:checked ~ #wrapper .about li::before {
   color: var(--main-blue);
@@ -402,6 +442,9 @@ body {
   align-items: center;
   width: 100%;
   padding: 0 2.4rem;
+}
+.post-preview > p {
+  width: 100%;
 }
 .post-preview .preview {
   display: block;
@@ -762,11 +805,15 @@ input[type='submit']:hover {
 .about .row {
   display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
 }
 .about .column {
   padding: 10px;
-  text-align: center;
+}
+.about .images-group img {
+  padding: 1rem;
 }
 .expandable:hover {
   opacity: 0.6;
@@ -877,9 +924,6 @@ input[type='submit']:hover {
     max-width: 250px;
     margin-left: 1.5rem;
   }
-  .about .row {
-    flex-flow: row nowrap;
-  }
   .footer-personal {
     display: flex;
     flex-flow: row nowrap;
@@ -895,6 +939,12 @@ input[type='submit']:hover {
   }
   .footer-div {
     max-width: 400px;
+  }
+}
+@media (max-height: 800px) {
+  .nav-blog {
+    position: relative;
+    top: 0;
   }
 }
 

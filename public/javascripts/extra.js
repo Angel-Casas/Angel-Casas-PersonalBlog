@@ -3,17 +3,49 @@
 // Like button toogle
 
 window.addEventListener('load', function() {
-  var lightInputValue = JSON.parse(localStorage.getItem('lightInputValues')) || false;
-  var input = document.querySelector('#light-input');
+  // Get input and value of light input
+  try {
+    var lightInputValue = JSON.parse(localStorage.getItem('lightInputValues')) || false;
+    var light_input = document.querySelector('#light-input');
 
-  input.addEventListener('change', function() {
-    lightInputValue = this.checked;
-    console.log('saved');
+    light_input.addEventListener('change', function() {
+      lightInputValue = this.checked;
+      console.log('light saved');
 
-    localStorage.setItem('lightInputValues', JSON.stringify(lightInputValue));
-  });
-  if (lightInputValue) {
-    input.checked = true;
+      localStorage.setItem('lightInputValues', JSON.stringify(lightInputValue));
+    });
+    if (lightInputValue) {
+      light_input.checked = true;
+    }
+  } catch(err) {
+    console.log('No Light input');
+  }
+
+  // Get input and value of language input
+  try {
+    var langInputValue = window.location.href.indexOf('/EN') > -1 ? false : true;
+    var lang_input = document.querySelector('#language-input');
+
+    console.log('LangInput: ' + langInputValue);
+
+    if (langInputValue) {
+      lang_input.checked = true;
+    }
+
+    lang_input.addEventListener('change', function() {
+      langInputValue = this.checked;
+      localStorage.setItem('lang', JSON.stringify(langInputValue));
+      console.log('Lang saved: ' + langInputValue);
+      if (window.location.href.indexOf("/EN") > -1 && this.checked) {
+        console.log('EN href');
+        window.location = window.location.href.replace('EN', 'ES');
+      } else if (window.location.href.indexOf("/ES") > -1 && !this.checked) {
+        console.log('ES href');
+        window.location = window.location.href.replace('ES', 'EN');
+      }
+    });
+  } catch(err) {
+    console.log('No language input');
   }
 
   // Check whether a like button exists and add an eventListener
@@ -29,28 +61,54 @@ window.addEventListener('load', function() {
 });
 
 // For IE only
-window.attachEvent('onload', function() {
-  var lightInputValue = JSON.parse(localStorage.getItem('lightInputValues')) || false;
-  var input = document.querySelector('#light-input');
+if (window.attachEvent) {
+  window.attachEvent('onload', function() {
+    // Get input and value of light input
+    try {
+      var lightInputValue = JSON.parse(localStorage.getItem('lightInputValues')) || false;
+      var light_input = document.querySelector('#light-input');
 
-  input.attachEvent('change', function() {
-    lightInputValue = this.checked;
-    console.log('saved');
+      light_input.attachEvent('change', function() {
+        lightInputValue = this.checked;
+        console.log('light saved');
 
-    localStorage.setItem('lightInputValues', JSON.stringify(lightInputValue));
-  });
-  if (lightInputValue) {
-    input.checked = true;
-  }
+        localStorage.setItem('lightInputValues', JSON.stringify(lightInputValue));
+      });
+      if (lightInputValue) {
+        light_input.checked = true;
+      }
+    } catch(err) {
+      console.log('No Light input');
+    }
 
-  // Check whether a like button exists and add an eventListener
-  try {
-    let likeBtn = document.querySelector('.button-like');
+    // Get input and value of language input
+    try {
+      var langInputValue = JSON.parse(localStorage.getItem('lang')) || false;
+      var lang_input = document.querySelector('#language-input');
 
-    likeBtn.attachEvent('click', function(event) {
-      likeBtn.classList.toggle('liked');
-    });
-  } catch(err) {
-    console.log('No like button detected.');
-  }
-})
+      lang_input.attachEvent('change', function() {
+        langInputValue = this.checked;
+        console.log('Lang saved: ' + langInputValue);
+
+        localStorage.setItem('lang', JSON.stringify(langInputValue));
+        window.location.reload();
+      });
+      if (langInputValue) {
+        lang_input.checked = true;
+      }
+    } catch(err) {
+      console.log('No language input');
+    }
+
+    // Check whether a like button exists and add an eventListener
+    try {
+      let likeBtn = document.querySelector('.button-like');
+
+      likeBtn.attachEvent('click', function(event) {
+        likeBtn.classList.toggle('liked');
+      });
+    } catch(err) {
+      console.log('No like button detected.');
+    }
+  })
+}

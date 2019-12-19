@@ -46,7 +46,13 @@ exports.index = function(req, res) {
               return next(err);
             }
             // Successful so render
-            res.render('index', { title: 'Welcome', post: post , tags: tagArray});
+            if (req.params.lang === 'EN') {
+              console.log('English');
+              res.render('index-EN', { title: 'Welcome', post: post, tags: tagArray})
+            } else {
+              console.log('ESPAÑOL')
+              res.render('index-ES', { title: 'Bienvenido', post: post, tags: tagArray});
+            }
           });
       });
     }
@@ -77,7 +83,13 @@ Blog.find({section: req.params.section}).
       return next(err);
     }
     // On success
-    res.render('post_list', {title: req.params.section.toUpperCase() == "ML" ? 'MACHINE LEARNING' : req.params.section.toUpperCase(), post_list: list_section_posts});
+    if (req.params.lang === 'EN') {
+      console.log('English');
+      res.render('post_list-EN', {title: req.params.section.toUpperCase() == "ML" ? 'MACHINE LEARNING' : req.params.section.toUpperCase(), post_list: list_section_posts});
+    } else {
+      console.log('ESPAÑOL')
+      res.render('post_list-ES', {title: req.params.section.toUpperCase() == "ML" ? 'MACHINE LEARNING' : req.params.section.toUpperCase(), post_list: list_section_posts});
+    }
   });
 }
 
@@ -90,7 +102,13 @@ exports.post_tag_list = function (req, res, next) {
         return next(err);
       }
       // On success
-      res.render('tag_list', { title: req.params.tag, tag_list: tag_list });
+      if (req.params.lang === 'EN') {
+        console.log('English');
+        res.render('tag_list-EN', { title: req.params.tag, tag_list: tag_list });
+      } else {
+        console.log('ESPAÑOL')
+        res.render('tag_list-ES', { title: req.params.tag, tag_list: tag_list });
+      }
     });
 }
 
@@ -105,8 +123,14 @@ exports.post_instance = function(req, res, next) {
           return next(err);
         }
         // On success
-        console.log(post.tags);
-        res.render('post', {title: post.title, post: post});
+        console.log(post);
+        if (req.params.lang === 'EN') {
+          console.log('English');
+          res.render('post-EN', {title: post.title, post: post});
+        } else {
+          console.log('ESPAÑOL')
+          res.render('post-ES', {title: post.title, post: post});
+        }
       });
   } else {
     console.log('Invalid Id');
@@ -192,7 +216,13 @@ exports.post_like_post = function(req, res, next) {
 
 // handle create post on GET
 exports.post_create_get = function(req, res) {
-  res.render('createPost');
+  if (req.params.lang === 'EN') {
+    console.log('English');
+    res.render('post_create-EN');
+  } else {
+    console.log('ESPAÑOL')
+    res.render('post_create-ES');
+  }
 }
 
 // handle create post on POST
@@ -208,10 +238,15 @@ exports.post_create_post = [
   body('title').isLength({ min: 1 }).trim().withMessage('Title must be specified.'),
   body('content').isLength({ min: 1 }).trim().withMessage('Content must be specified.'),
   body('preview').optional().isLength({ min: 1 }).trim().withMessage('Preview must be specified.'),
+  body('titulo').isLength({ min: 1 }).trim().withMessage('El titulo debe ser especificado.'),
+  body('contenido').isLength({ min: 1 }).trim().withMessage('El contenido debe ser especificado.'),
+  body('previa').optional().isLength({ min: 1 }).trim().withMessage('La previa debe ser especificada.'),
 
   // Sanitize fields
   sanitizeBody('title').escape(),
   sanitizeBody('preview').escape(),
+  sanitizeBody('titulo').escape(),
+  sanitizeBody('previa').escape(),
 
   // Process request after validation and sanitization
   async (req, res, next) => {
@@ -223,11 +258,17 @@ exports.post_create_post = [
       // Create a post object with escaped and trimmed data
       var post = new Blog(
         {
-          title: req.body.title,
-          body: req.body.content,
-          preview: req.body.preview,
+          english: {
+            title: req.body.title,
+            body: req.body.content,
+            preview: req.body.preview
+          },
+          español: {
+            title: req.body.titulo,
+            body: req.body.contenido,
+            preview: req.body.previa
+          },
           section: req.body.section,
-          tags: []
         });
 
       if (!errors.isEmpty()) {
@@ -266,7 +307,13 @@ exports.post_edit_get =  function (req, res, next) {
         return next(err);
       }
       // On success
-      res.render('post_edit', {post: post});
+      if (req.params.lang === 'EN') {
+        console.log('English');
+        res.render('post_edit-EN', {post: post});
+      } else {
+        console.log('ESPAÑOL')
+        res.render('post_edit-ES', {post: post});
+      }
     });
 }
 
@@ -283,10 +330,15 @@ exports.post_edit_post = [
   body('title').isLength({ min: 1 }).trim().withMessage('Title must be specified.'),
   body('content').isLength({ min: 1 }).trim().withMessage('Content must be specified.'),
   body('preview').optional().isLength({ min: 1 }).trim().withMessage('Preview must be specified.'),
+  body('titulo').isLength({ min: 1 }).trim().withMessage('Titulo must be specified.'),
+  body('contenido').isLength({ min: 1 }).trim().withMessage('Contenido must be specified.'),
+  body('previa').isLength({ min: 1 }).trim().withMessage('Previa must be specified.'),
 
   // Sanitize fields
   sanitizeBody('title').escape(),
   sanitizeBody('preview').escape(),
+  sanitizeBody('titulo').escape(),
+  sanitizeBody('previa').escape(),
 
   // Process request after validation and sanitization
   async (req, res, next) => {
@@ -297,9 +349,18 @@ exports.post_edit_post = [
     // Data form is valid. Create a post object with escaped and trimmed data
     var post =
       {
-        title: req.body.title,
-        body: req.body.content,
-        preview: req.body.preview,
+        english:
+          {
+            title: req.body.title,
+            body: req.body.content,
+            preview: req.body.preview
+          },
+        español:
+          {
+            title: req.body.titulo,
+            body: req.body.contenido,
+            preview: req.body.previa
+          },
         section: req.body.section,
         tags: []
       };
@@ -320,18 +381,72 @@ exports.post_edit_post = [
         }
         // Successful
         console.log('Updated post with new content');
-        res.redirect(item.url);
+        if (req.params.lang === 'EN') {
+          console.log('English');
+          res.redirect('/EN/' + item.url);
+        } else {
+          console.log('ESPAÑOL')
+          res.redirect('/ES/' + item.url);
+        }
       });
     }
   }
 ];
 
+// Handle post delete on GET
+exports.post_delete_get = function (req, res, next) {
+  Blog.findById(req.params.id, function (err, post) {
+    if (err) {
+      console.log('Error finding post to delete on GET: ' + err);
+      return next(err);
+    }
+    // On success
+    if (req.params.lang === 'EN') {
+      console.log('English');
+      res.render('post_delete-EN', { post: post });
+    } else {
+      console.log('ESPAÑOL')
+      res.render('post_delete-ES', { post: post });
+    }
+  });
+};
+
+// Handle post delete on POST
+exports.post_delete_post = function (req, res, next) {
+  Blog.findByIdAndRemove(req.params.id, function (err) {
+    if (err) {
+      console.log('Error deleting post on POST: ' + err);
+      return next(err);
+    }
+    // On success
+    if (req.params.lang === 'EN') {
+      console.log('English');
+      res.redirect('/EN');
+    } else {
+      console.log('ESPAÑOL')
+      res.redirect('/ES');
+    }
+  });
+};
+
 // Handle about section on GET
 exports.about_section_get = function (req, res, next) {
-  res.render('about');
+  if (req.params.lang === 'EN') {
+    console.log('English');
+    res.render('about-EN')
+  } else {
+    console.log('ESPAÑOL')
+    res.render('about-ES');
+  }
 }
 
 // Handle projects section on GET
 exports.projects_section_get = function (req, res, next) {
-  res.render('projects');
+  if (req.params.lang === 'EN') {
+    console.log('English');
+    res.render('projects-EN')
+  } else {
+    console.log('ESPAÑOL')
+    res.render('projects-ES');
+  }
 }

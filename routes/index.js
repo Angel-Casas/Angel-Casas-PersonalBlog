@@ -6,13 +6,13 @@ var postController = require('../controllers/postController');
 var bookController = require('../controllers/bookController');
 
 // Home page route.
-router.get('/', postController.index);
+router.get('/:lang', postController.index);
 
 // About page route
-router.get('/about', postController.about_section_get);
+router.get('/:lang/about', postController.about_section_get);
 
 // Projects page route
-router.get('/projects', postController.projects_section_get);
+router.get('/:lang/projects', postController.projects_section_get);
 
 // POST ROUTES
 
@@ -20,13 +20,13 @@ router.get('/projects', postController.projects_section_get);
 router.get('/posts', postController.post_list);
 
 // GET request for post section landing page
-router.get('/posts/:section', postController.post_section_list);
+router.get('/:lang/posts/:section', postController.post_section_list);
 
 // GET request for post tags landing page
-router.get('/posts/find/:tag', postController.post_tag_list);
+router.get('/:lang/posts/find/:tag', postController.post_tag_list);
 
 // GET request for post instance
-router.get('/posts/:section/:id', postController.post_instance);
+router.get('/:lang/posts/:section/:id', postController.post_instance);
 
 // GET request for post instance cover
 router.get('/posts/:section/:id/img', postController.post_cover);
@@ -41,21 +41,27 @@ router.post('/posts/:section/:id/comment', postController.post_comment_post);
 router.post('/posts/:section/:id/like', postController.post_like_post);
 
 // GET request for creating post PRIVATE
-router.get('/new', postController.post_create_get);
+router.get('/:lang/new', postController.post_create_get);
 
 // POST request for creating post PRIVATE
-router.post('/new', postController.post_create_post);
+router.post('/:lang/new', postController.post_create_post);
 
 // GET request for editing post PRIVATE
-router.get('/posts/:section/:id/edit', postController.post_edit_get);
+router.get('/:lang/posts/:section/:id/edit', postController.post_edit_get);
 
 // POST request for editing post PRIVATE
-router.post('/posts/:section/:id/edit', postController.post_edit_post);
+router.post('/:lang/posts/:section/:id/edit', postController.post_edit_post);
+
+// GET request for deleting post PRIVATE
+router.get('/:lang/posts/:section/:id/delete', postController.post_delete_get);
+
+// POST request for deleting post PRIVATE
+router.post('/:lang/posts/:section/:id/delete', postController.post_delete_post);
 
 // BOOKS ROUTES
 
 // GET request for books list landing page
-router.get('/books', bookController.books_list);
+router.get('/:lang/books', bookController.books_list);
 
 // GET request for books create
 router.get('/books/create', bookController.books_create_get);

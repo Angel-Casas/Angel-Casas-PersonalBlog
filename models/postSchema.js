@@ -4,25 +4,30 @@ var moment = require('moment');
 var Schema = mongoose.Schema;
 
 var postSchema = new Schema({
-  title : String,
+  english: {
+    title : String,
+    body: String,
+    preview: String
+  },
+  español: {
+    title : String,
+    body: String,
+    preview: String
+  },
   author: { type: String, default: 'Ángel Casas Pescador' },
-  body: String,
-  preview: String,
+  section: String,
   comments: { type: Array, default: [] },
-  date: { type: Date, default: Date.now },
-  cover: { contentType: String, data: Buffer },
-  hidden: Boolean,
-  tags: { type: Array, default: [] },
   meta: {
     votes: { type: Number, default: 0 },
     favs: { type: Number, default: 0 }
   },
-  section: String
+  date: { type: Date, default: Date.now },
+  tags: { type: Array, default: [] }
 });
 
 // Virtual for post's URL
 postSchema.virtual('url').get(function() {
-  return '/posts/' + this.section + '/' + this._id;
+  return 'posts/' + this.section + '/' + this._id;
 });
 
 // Virtual for post's Time format
