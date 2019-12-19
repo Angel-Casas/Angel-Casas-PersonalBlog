@@ -12,8 +12,8 @@ var app = express();
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
-var dev_db_url = 'mongodb://localhost:27017/Blog';
-// var dev_db_url = 'mongodb+srv://Admin:75tofATiF9UNWcJ6@cluster0-qldfs.mongodb.net/blog_database?retryWrites=true&w=majority';
+// var dev_db_url = 'mongodb://localhost:27017/Blog';
+var dev_db_url = 'mongodb+srv://Admin:75tofATiF9UNWcJ6@cluster0-qldfs.mongodb.net/blog_database?retryWrites=true&w=majority';
 var mongoDB = process.env.MONGODB_URI || dev_db_url;
 const option = {
     socketTimeoutMS: 90000,
@@ -41,7 +41,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(compression()); // Compress all routes
 
-app.use('/', indexRouter); // Add index Route to middleware chain
+app.use('/EN', indexRouter); // Add index Route to middleware chain
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
