@@ -41,7 +41,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(compression()); // Compress all routes
 
-app.use('/EN', indexRouter); // Add index Route to middleware chain
+app.use('/', indexRouter); // Add index Route to middleware chain
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
