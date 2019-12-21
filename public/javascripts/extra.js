@@ -44,6 +44,7 @@ window.addEventListener('load', function() {
         window.location = window.location.href.replace('ES', 'EN');
       }
     });
+    document.querySelector('.js').style.display = 'block';
   } catch(err) {
     console.log('No language input');
   }
@@ -88,14 +89,20 @@ if (window.attachEvent) {
 
       lang_input.attachEvent('change', function() {
         langInputValue = this.checked;
-        console.log('Lang saved: ' + langInputValue);
-
         localStorage.setItem('lang', JSON.stringify(langInputValue));
-        window.location.reload();
+        console.log('Lang saved: ' + langInputValue);
+        if (window.location.href.indexOf("/EN") > -1 && this.checked) {
+          console.log('EN href');
+          window.location = window.location.href.replace('EN', 'ES');
+        } else if (window.location.href.indexOf("/ES") > -1 && !this.checked) {
+          console.log('ES href');
+          window.location = window.location.href.replace('ES', 'EN');
+        }
       });
       if (langInputValue) {
         lang_input.checked = true;
       }
+      document.querySelector('.js').style.display = 'block';
     } catch(err) {
       console.log('No language input');
     }

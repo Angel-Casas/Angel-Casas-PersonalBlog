@@ -2,7 +2,7 @@ extends layout-ES
 
 block content
   .post-wrapper
-    nav.nav-blog.border-top(role='navigation')
+    nav.nav-blog.border-top.hidden(role='navigation')
       h5 Tabla de Contenidos:
     // End of .nav-blog
     article.post
@@ -99,6 +99,7 @@ block content
        new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
       }
     script(type='text/javascript').
+      document.querySelector('.nav-blog').className = document.querySelector('.nav-blog').className.replace('hidden', 'show')
       var nav = document.querySelector('.nav-blog');
       var list = initTOC({
         selector: 'h3, h4',
