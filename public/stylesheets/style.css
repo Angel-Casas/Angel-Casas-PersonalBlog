@@ -1,5 +1,14 @@
 /**** VARIABLES ****/
 
+@font-face {
+    font-family: 'goudy_initialenregular';
+    src: url('/fonts/goudyini-webfont.woff2') format('woff2'),
+         url('/fonts/goudyini-webfont.woff') format('woff'),
+         url('/fonts/Goudyini.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 :root {
   --main-gold: rgb(221, 182, 78);
   --main-blue: rgb(24, 132, 232);
@@ -629,7 +638,7 @@ li::marker {
 #entry p > :first-child::first-letter {
   font-size: 11.8rem;
   /* font-family: "Playfair Display", "Times New Roman", serif; */
-  font-family: "Goudy Initialen";
+  font-family: 'goudy_initialenregular';
   line-height: 10.4rem;
   padding: 0 5px 0 2px;
 }
