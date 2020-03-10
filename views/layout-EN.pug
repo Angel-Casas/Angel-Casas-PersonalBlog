@@ -9,6 +9,7 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.5.0/css/all.css', integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU', crossorigin='anonymous')
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Playfair+Display&display=swap')
+    link(rel='stylesheet', href='//db.onlinewebfonts.com/c/5739e00faa4f8b626f94a5aab397ca64?family=Goudy+Initialen')
     script(src='/javascripts/toc.js')
     script(src='/javascripts/extra.js')
     link(rel='icon', href='')
@@ -23,6 +24,9 @@ html
     div#language-alt-links.show
       a(href='/EN' class='border-bottom') English
       a(href='/ES' class='border-bottom') Español
+    // Language-input EN/ES mode
+    a#top-arrow(href="#wrapper")
+      .top-arrow
     #loader-wrapper
     // End of #loader-wrapper
     #wrapper
@@ -37,9 +41,11 @@ html
         nav#main-nav
           ul#main-nav-ul
             li.nav-li
-              a(href='/EN/posts/ml') Machine Learning
+              a(href='/EN/posts/cs') Computer Science
+              li.nav-li
+                a(href='/EN/posts/math') Mathematics
             li.nav-li
-              a(href='/EN/posts/bitcoin') Bitcoin
+              a(href='/EN/posts/economy') Economy
             li.nav-li
               a(href='/EN/posts/nature') Nature
             li.nav-li

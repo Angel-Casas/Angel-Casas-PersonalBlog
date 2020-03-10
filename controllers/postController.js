@@ -87,10 +87,10 @@ Blog.find({section: req.params.section}).
     // On success
     if (req.params.lang === 'EN') {
       console.log('English');
-      res.render('post_list-EN', {title: req.params.section.toUpperCase() == "ML" ? 'MACHINE LEARNING' : req.params.section.toUpperCase(), post_list: list_section_posts});
+      res.render('post_list-EN', {title: req.params.section.toUpperCase(), post_list: list_section_posts});
     } else {
       console.log('ESPAÑOL')
-      res.render('post_list-ES', {title: req.params.section.toUpperCase() == "ML" ? 'MACHINE LEARNING' : req.params.section.toUpperCase(), post_list: list_section_posts});
+      res.render('post_list-ES', {title: req.params.section.toUpperCase(), post_list: list_section_posts});
     }
   });
 }
@@ -118,22 +118,30 @@ exports.post_tag_list = function (req, res, next) {
 exports.post_instance = function(req, res, next) {
   if (mongoose.Types.ObjectId.isValid(req.params.id)) {
     console.log('Valid Id');
-    Blog.findById(req.params.id).
-      exec(function (err, post) {
-        if (err) {
-          console.log('findById post instance error:' + err);
-          return next(err);
-        }
-        // On success
-        console.log(post);
-        if (req.params.lang === 'EN') {
-          console.log('English');
-          res.render('post-EN', {title: post.title, post: post});
-        } else {
-          console.log('ESPAÑOL')
-          res.render('post-ES', {title: post.title, post: post});
-        }
-      });
+    Blog.find({ section: req.params.section }, function (err, post_list) {
+      if (err) {
+        console.log("Error in finding post list: " + err);
+        return next(err);
+      }
+      // On success
+      Blog.findById(req.params.id).
+        exec(function (err, post) {
+          if (err) {
+            console.log('findById post instance error:' + err);
+            return next(err);
+          }
+          // On success
+          console.log(post);
+          if (req.params.lang === 'EN') {
+            console.log('English');
+            console.log(post_list);
+            res.render('post-EN', {title: post.title, post: post, post_list: post_list });
+          } else {
+            console.log('ESPAÑOL')
+            res.render('post-ES', {title: post.title, post: post, post_list: post_list });
+          }
+        });
+    });
   } else {
     console.log('Invalid Id');
     res.render('error');

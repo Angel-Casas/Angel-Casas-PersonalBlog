@@ -1,6 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var compression = require('compression');
@@ -12,8 +13,8 @@ var app = express();
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
-// var dev_db_url = 'mongodb://localhost:27017/Blog';
-var dev_db_url = 'mongodb+srv://Admin:75tofATiF9UNWcJ6@cluster0-qldfs.mongodb.net/blog_database?retryWrites=true&w=majority';
+var dev_db_url = 'mongodb://localhost:27017/Blog';
+// var dev_db_url = 'mongodb+srv://Admin:75tofATiF9UNWcJ6@cluster0-qldfs.mongodb.net/blog_database?retryWrites=true&w=majority';
 var mongoDB = process.env.MONGODB_URI || dev_db_url;
 const option = {
     socketTimeoutMS: 90000,
@@ -36,7 +37,8 @@ app.locals.basedir = path.join(__dirname, 'views');
 app.use(helmet());
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(compression()); // Compress all routes

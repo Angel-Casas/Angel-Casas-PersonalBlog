@@ -6,6 +6,7 @@
   --main-grey: rgb(85, 86, 99);
   --light-blue: rgb(77, 223, 255);
   --light-grey: rgb(170, 170, 170);
+  --main-black: rgb(59, 62, 64);
   --main-red: rgb(254, 82, 82);
 }
 
@@ -91,11 +92,27 @@ blockquote span {
   outline: 1px solid var(--main-gold);
   outline-offset: 5px;
 }
-.caption-text {
-  font-style: italic;
-}
 .underline {
   text-decoration: var(--main-gold) underline;
+}
+figure {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-items: center;
+  clear: both;
+}
+figure img {
+  width: 100%;
+  max-width: 700px;
+}
+.inline-images {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}
+.caption-text {
+  font-style: italic;
 }
 summary {
   cursor: pointer;
@@ -104,6 +121,9 @@ summary:focus {
   outline: none;
 }
 p {
+  font-size: 1.8rem;
+}
+.post-entry li {
   font-size: 1.8rem;
 }
 .error {
@@ -117,10 +137,22 @@ figure {
   padding: 1.5rem 0;
   background-color: rgba( 0, 0, 0, .1);
 }
-
+.videowrapper {
+    position: relative;
+    padding-bottom: 56.45%;
+    height: 0;
+}
+.videowrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 /**** WRAPPER ****/
 
 html {
+  background-color: var(--main-black);
   text-align: center;
   font-family: "Times New Roman", serif;
   scroll-behavior: smooth;
@@ -151,8 +183,26 @@ body {
   content: '' !important;
   font-size: inherit !important;
 }
+.top-arrow {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  border: solid;
+  border-color: var(--light-grey);
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 10px;
+  transform: rotate(-135deg);
+  z-index: 10000;
+  -webkit-transform: rotate(-135deg);
+}
+.top-arrow:hover {
+  border-color: var(--main-gold);
+}
+#vuukle-emote {
+  width: 100%;
+}
 #wrapper {
-  background-color: var(--main-grey);
   color: white;
   display: flex;
   flex-flow: column nowrap;
@@ -247,6 +297,9 @@ body {
 #light-input:checked ~ #wrapper .circle-icon-box .circle {
   border: 1px solid black;
 }
+#light-input:checked ~ #wrapper .circle-icon-box:hover .circle {
+  border-color: var(--main-blue);
+}
 #light-input:checked ~ #wrapper .color {
   color: var(--main-blue);
 }
@@ -285,8 +338,14 @@ body {
 #light-input:checked ~ #wrapper #entry li::before {
   color: var(--main-blue);
 }
+#light-input:checked ~ #wrapper li::marker {
+  color: var(--main-blue);
+}
 #light-input:checked ~ #wrapper .underline {
   text-decoration-color: var(--main-blue);
+}
+#light-input:checked ~ #top-arrow .top-arrow:hover {
+  border-color: var(--main-blue);
 }
 /**** LOADER ****/
 
@@ -301,8 +360,8 @@ body {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 1000px;
-  padding-top: 2.4rem;
+  max-width: 1200px;
+  padding: 2.4rem 1rem 0 1rem;
 }
 #main-nav {
   width: 80%;
@@ -332,6 +391,10 @@ body {
   bottom: 0;
   transition: all .15s ease-in-out;
   margin: auto;
+  transition: border-color 1s ease-in-out;
+}
+.circle-icon-box:hover .circle {
+  border-color: var(--main-gold);
 }
 .circle-icon-box .big {
   width: 50px;
@@ -431,10 +494,6 @@ body {
 .nav-blog > ol > li > ol {
   font-size: 1.4rem;
 }
-.nav-blog > ol > li > ol > li {
-  list-style: decimal inside;
-  padding-left: 1rem;
-}
 .current {
   background-color: rgba(0, 0, 0, .1);
 }
@@ -493,7 +552,6 @@ body {
   margin: 0 auto;
   padding: 0 1.5rem;
   width: 100%;
-  min-width: 300px;
 }
 .entry-small {
   display: inline-block;
@@ -521,10 +579,14 @@ body {
   list-style: none;
   padding: 10px 0;
 }
-#entry > ul > li::before {
+#entry .post-entry > ul > li::before {
   content: '\2192';
   margin-right: 5px;
   font-size: 2.8rem;
+  line-height: 1rem;
+  color: var(--main-gold);
+}
+li::marker {
   color: var(--main-gold);
 }
 #entry ul li ul > li {
@@ -537,6 +599,15 @@ body {
 }
 #entry blockquote a {
   text-decoration: none;
+}
+#entry figure::after {
+  content: 'CLICK THE IMAGE TO ENLARGE';
+  color: var(--main-red);
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+}
+#entry figure:hover::after {
+  opacity: 1;
 }
 #entry .intro-box {
   display: flex;
@@ -554,14 +625,13 @@ body {
   background-color: rgba(0, 0, 0, .7) !important;
   color: white !important;
 }
-#entry img {
-  display: block;
-  margin: 0 auto;
-}
-.drop-cap {
-  font-size: 5.4rem;
-  line-height: 1.8rem;
-  padding: 5px;
+
+#entry p > :first-child::first-letter {
+  font-size: 11.8rem;
+  /* font-family: "Playfair Display", "Times New Roman", serif; */
+  font-family: "Goudy Initialen";
+  line-height: 10.4rem;
+  padding: 0 5px 0 2px;
 }
 .blog-footer {
   width: 100%;
@@ -690,10 +760,12 @@ input[type='submit']:hover {
   background-color: var(--main-gold);
   color: white;
 }
-
+.extra-aside {
+  background-color: rgba(0, 0, 0, .1);
+  width: 100%;
+}
 .donation-box {
   width: 100%;
-  background-color: rgba(0, 0, 0, .1);
   padding: 1rem;
 }
 .donation-text p {
@@ -858,7 +930,7 @@ input[type='submit']:hover {
 #main-footer {
   width: 100%;
   background-color: rgba(0, 0, 0, .1);
-  padding: 1.8rem;
+  padding: 2rem;
 }
 .footer-personal {
   display: flex;
@@ -870,7 +942,7 @@ input[type='submit']:hover {
 #footer-box {
   display: flex;
   flex-flow: column nowrap;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 #footer-icons {
@@ -924,6 +996,14 @@ input[type='submit']:hover {
   opacity: 1;
 }
 /**** MEDIA QUERIES ****/
+@media (min-width: 500px) {
+  .inline-figure {
+    float: right;
+    width: 300px;
+    height: auto;
+    margin-left: 2rem;
+  }
+}
 
 /* Only stick if you can fit */
 @media (min-width: 1000px) {
@@ -934,7 +1014,8 @@ input[type='submit']:hover {
     position: -webkit-sticky;
     position: sticky;
     top: 3rem;
-    max-width: 250px;
+    max-width: 300px;
+    min-width: 200px;
   }
   #main-nav-ul {
     flex-flow: row nowrap;
@@ -950,9 +1031,13 @@ input[type='submit']:hover {
   .post-wrapper {
     flex-flow: row nowrap;
   }
-  .donation-box {
-    max-width: 250px;
+  .extra-aside {
+    max-width: 350px;
+    min-width: 100px;
     margin-left: 1.5rem;
+  }
+  .post {
+    min-width: 600px;
   }
   .footer-personal {
     display: flex;

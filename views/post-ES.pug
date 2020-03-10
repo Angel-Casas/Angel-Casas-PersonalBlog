@@ -3,7 +3,7 @@ extends layout-ES
 block content
   .post-wrapper
     nav.nav-blog.border-top.hidden(role='navigation')
-      h5 Tabla de Contenidos:
+      h5.color Tabla de Contenidos:
     // End of .nav-blog
     article.post
       #entry
@@ -17,16 +17,12 @@ block content
           .entry-tags
             each tag in post.tags
               a(href='/ES/posts/find/' + tag)= tag.toString().replace('_', ' ')
-          .entry-translate
-             //- #google_translate_element
-        | !{post.español.body}
+          .entry-audio
+            div.trinityAudioPlaceholder
+        .post-entry
+          | !{post.español.body}
         .blog-footer
-          form(method='POST', action=post.url + '/like')
-            label.button-like(for='input-like')
-              span.icon
-              span Like
-              span= post.meta.votes
-              input(type='submit', value='Submit', name='input-like', id='input-like')
+          div.reactions
         #share-box
           h5.color Comparte
           .a2a_kit.a2a_kit_size_32.a2a_default_style
@@ -64,40 +60,41 @@ block content
           input(type='submit', value='Submit', class='form-button')
       // End of #blog-comments
     // End of .post
-    aside.donation-box.border-top
-      h4.color Donar = Involucrarse
-      .donation-text
-        p Invierto mucho tiempo, esfuerzo y recursos para desarrollar este blog y mantener todo el contenido libre para siempre (incluyendo ningún anuncio).
-        p Esto requiere de muchas horas al mes invertidas en investigar y compilar toda la información necesaria para producir las publicaciónes y esto conlleva 
-          | a una gran necesidad de ingresos para convertir este blog en algo sostenible y para poder seguir mejorando. Si encuentras alegría y valor en lo que 
-          | se produce aquí, por favor considere convertirse en un Patron de Sustento con una donación mensual recurrente de su agrado entre una taza de café y una buena Cena.
-          | Su apoyo ayuda a mantener este blog gratis, público y con artículos valiosos.
-        .donation-amount
-          h5.color DONACIÓN MENSUAL
-          p $3 / mes
-          p $5 / mes
-          p $7 / mes
-          p $10 / mes
-          p $25 / mes
-          a.donation-button Donar
-          h5.color DONAR UNA VEZ
-          p También puedes convertirte en un Simpatizante donando una sola vez cualquier cantidad que quieras donar:
-          a.donation-button Donar
-        .donation-bitcoin
-          h5.color Bitcoin
-          p Si disfruta la experiencia Bitcoin puede donar a través de esta dirección de Bitcoin:
-          p 3BMEXXLP2V9W86TK75wUzcS3MLUKixL28k
-        p Quiere cancelar una donación recurrente?
-        a.underline(href='') Entre aquí.
-          
-        
-    // End if .donation-box
+    aside.extra-aside
+      .donation-box.border-top
+        h4.color Donar = Apoyarme
+        .donation-text
+          p Invierto mucho tiempo, esfuerzo y recursos para desarrollar este blog y mantener todo el contenido libre para siempre (incluyendo ningún anuncio).
+          p Esto requiere de muchas horas al mes invertidas en investigar y compilar toda la información necesaria para producir las publicaciónes y esto conlleva 
+            | a una gran necesidad de ingresos para convertir este blog en algo sostenible y para poder seguir mejorando. Si encuentras alegría y valor en lo que 
+            | se produce aquí, por favor considere convertirse en un Patron de Sustento con una donación mensual recurrente de su agrado entre una taza de café y una buena Cena.
+            | Su apoyo ayuda a mantener este blog gratis, público y con artículos valiosos.
+          .donation-amount
+            h5.color DONACIÓN MENSUAL
+            p $3 / mes
+            p $5 / mes
+            p $7 / mes
+            p $10 / mes
+            p $25 / mes
+            a.donation-button Donar
+            h5.color DONAR UNA VEZ
+            p También puedes convertirte en un Simpatizante donando una sola vez cualquier cantidad que quieras donar:
+            a.donation-button Donar
+          .donation-bitcoin
+            h5.color Bitcoin
+            p Si disfruta la experiencia Bitcoin puede donar a través de esta dirección de Bitcoin:
+            p 3BMEXXLP2V9W86TK75wUzcS3MLUKixL28k
+          p Quiere cancelar una donación recurrente?
+          a.underline(href='') Entre aquí.  
+      // End of .donation-box
+      .blog-list.border-top
+        h4.color Posts Recientes
+        .list-box
+          for elem in post_list
+            a(href="/ES/" + elem.url)
+              h5= elem.español.title
+      // End of .blog-list
     script(async src="https://static.addtoany.com/menu/page.js")
-    script(type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit")
-    script(type="text/javascript").
-      function googleTranslateElementInit() {
-       new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
-      }
     script(type='text/javascript').
       document.querySelector('.nav-blog').className = document.querySelector('.nav-blog').className.replace('hidden', 'show')
       var nav = document.querySelector('.nav-blog');
@@ -108,3 +105,4 @@ block content
       })
       console.log(list.children)
       nav.appendChild(list);
+    script(type='text/javascript' src='https://trinitymedia.ai/sas/player/trinity.php?sCampaignID=2900000364&GDPR=$$GDPR_MACRO$$&GDPR_CONSENT=$$GDPR_CONSENT_MACRO$$')
