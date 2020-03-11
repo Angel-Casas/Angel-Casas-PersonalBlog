@@ -184,12 +184,15 @@ body {
 .show {
   display: block;
 }
+.numeral-list {
+  counter-reset: numeral-counter;
+}
 .numeral {
-  list-style-type: decimal !important;
   margin-left: 2rem;
+  counter-increment: numeral-counter;
 }
 .numeral::before {
-  content: '' !important;
+  content: counter(numeral-counter) '. ' !important;
   font-size: inherit !important;
 }
 .top-arrow {
@@ -341,13 +344,7 @@ body {
 #light-input:checked ~ #language-label span::after {
   background: black;
 }
-#light-input:checked ~ #wrapper .about li::before {
-  color: var(--main-blue);
-}
-#light-input:checked ~ #wrapper #entry li::before {
-  color: var(--main-blue);
-}
-#light-input:checked ~ #wrapper li::marker {
+#light-input:checked ~ #wrapper li::before {
   color: var(--main-blue);
 }
 #light-input:checked ~ #wrapper .underline {
@@ -489,13 +486,19 @@ body {
 .nav-blog > ol {
   font-size: 1.8rem;
   padding: 1rem .2rem;
+  list-style: none;
+  counter-reset: nav-counter;
 }
 .nav-blog li {
   padding: 1rem .2rem;
   text-align: center;
 }
 .nav-blog > ol > li {
-  list-style: upper-roman inside;
+  counter-increment: nav-counter;
+}
+.nav-blog > ol > li::before {
+  content: counter(nav-counter, upper-roman);
+  color: var(--main-gold);
 }
 .nav-blog ol > li:hover {
   background-color: Rgba(0, 0, 0, .1);
@@ -889,7 +892,6 @@ input[type='submit']:hover {
   text-align: center;
 }
 .about a {
-  color: var(--main-gold);
   font-weight: bold;
 }
 .about a:hover {
@@ -909,9 +911,16 @@ input[type='submit']:hover {
   font-size: 2.8rem;
   color: var(--main-gold);
 }
+.about .presentation ul li ul {
+  counter-reset: about-counter;
+}
 .about .presentation ul li ul > li {
-  list-style: lower-roman;
+  counter-increment: about-counter;
   margin-left: 60px;
+}
+.about .presentation ul li ul > li::before {
+  content: counter(about-counter, lower-roman) ' ';
+  color: var(--main-gold);
 }
 .about .row {
   display: flex;

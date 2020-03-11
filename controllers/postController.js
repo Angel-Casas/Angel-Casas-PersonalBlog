@@ -77,7 +77,7 @@ exports.post_list = function (req, res, next) {
 
 // Display list of all posts in section
 exports.post_section_list = function (req, res, next) {
-Blog.find({section: req.params.section}).
+Blog.find({section: req.params.section.toUpperCase()}).
   sort({ date: -1 }).
   exec(function(err, list_section_posts) {
     if (err) {
@@ -85,12 +85,28 @@ Blog.find({section: req.params.section}).
       return next(err);
     }
     // On success
+    var translated = '';
+    console.log(req.params.section.toUpperCase());
     if (req.params.lang === 'EN') {
       console.log('English');
       res.render('post_list-EN', {title: req.params.section.toUpperCase(), post_list: list_section_posts});
     } else {
-      console.log('ESPAÑOL')
-      res.render('post_list-ES', {title: req.params.section.toUpperCase(), post_list: list_section_posts});
+      console.log('ESPAÑOL');
+      switch (req.params.section.toUpperCase()) {
+        case 'MATH':
+          translated = 'Matemáticas';
+          break;
+        case 'CS':
+          translated = 'Ciencias de la computación';
+          break;
+        case 'ECONOMY':
+          translated = 'Economía';
+          break;
+        case 'NATURE':
+          translated = 'Naturaleza';
+          break;
+      }
+      res.render('post_list-ES', {title: translated.toUpperCase(), post_list: list_section_posts});
     }
   });
 }
@@ -283,7 +299,7 @@ exports.post_create_post = [
 
       if (!errors.isEmpty()) {
         // There are errors. Render form again  with sanitized values/error messages
-        res.render('createPost', { errors: errors.array() });
+        res.render('post_create-EN', { errors: errors.array() });
         return;
       } else {
         // Data form is valid. Add tags and save post
