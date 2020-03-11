@@ -456,6 +456,10 @@ body {
   border-bottom: 1px solid var(--light-grey);
   margin: auto 1.2rem;
 }
+#main-section #intro-message {
+  text-align: left;
+  padding: 0 1rem;
+}
 #main-section .index-post {
   width: 100%;
 }
