@@ -14,7 +14,7 @@ block content
             time(class='entry-time', datetime=post.date)  #{post.post_time_formatted}
           .entry-comments
             a(href="#blog-comments") Comments #{post.comments.length}
-          .entry-tags
+          .tags
             each tag in post.tags
               a(href='/EN/posts/find/' + tag)= tag.toString().replace('_', ' ')
           .entry-audio

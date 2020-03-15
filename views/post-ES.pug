@@ -3,7 +3,7 @@ extends layout-ES
 block content
   .post-wrapper
     nav.nav-blog.border-top.hidden(role='navigation')
-      h5.color Tabla de Contenidos:
+      h4.color Tabla de Contenidos:
     // End of .nav-blog
     article.post
       #entry
@@ -14,7 +14,7 @@ block content
             time(class='entry-time', datetime=post.date)  #{post.post_time_formatted}
           .entry-comments
             a(href="#blog-comments") Commentarios #{post.comments.length}
-          .entry-tags
+          .tags
             each tag in post.tags
               a(href='/ES/posts/find/' + tag)= tag.toString().replace('_', ' ')
           .entry-audio

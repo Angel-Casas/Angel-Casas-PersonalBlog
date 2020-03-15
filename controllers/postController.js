@@ -93,7 +93,7 @@ Blog.find({section: req.params.section.toUpperCase()}).
     } else {
       console.log('ESPAÑOL');
       switch (req.params.section.toUpperCase()) {
-        case 'MATH':
+        case 'MATHEMATICS':
           translated = 'Matemáticas';
           break;
         case 'CS':

@@ -30,17 +30,17 @@ block content
         a(href="/ES/" + post.url)
           h4= post.español.title
           time.post-date(date-time=post.date) #{post.post_time_formatted}
+        p.preview= post.español.preview
         .entry-small
-          .entry-tags
+          .tags
             each tag in post.tags
               a(href='/ES/posts/find/' + tag)= tag.toString().replace('_', ' ')
             else
               | *
-        p.preview= post.español.preview
   if tags.length
     .index-tag-cloud
       header
         h3.color Etiquetas
-      .tag-cloud
+      .tags
         for tag in tags
           a(href='/ES/posts/find/' + tag)= tag.toString().replace('_', ' ')
