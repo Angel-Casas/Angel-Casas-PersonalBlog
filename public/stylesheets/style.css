@@ -70,16 +70,30 @@ blockquote {
   background-color: rgba(0, 0, 0, .1);
   font-family: 'Playfair Display', serif;
   font-size: 1.2em;
-  padding: 1em .5em;
+  padding: 0.5em 1em;
   margin: 1em;
+  position: relative;
+}
+blockquote p {
+  line-height: 1.7em;
+  text-align: center !important;
+}
+blockquote p::before,
+blockquote p::after {
+  content: '“';
+  font-size: 1.8em;
+  line-height: 0;
+  color: var(--main-gold);
+}
+blockquote p::before {
+  padding-right: .5em;
+}
+blockquote p::after {
+  content: '”';
+  padding-left: .5em;
 }
 blockquote > cite {
-}
-
-blockquote span {
-  font-size: 1.5em;
-  line-height: 0;
-  padding: 0 .4em;
+  display: block;
 }
 .color {
   color: var(--main-gold);
@@ -308,6 +322,10 @@ body {
 #light-input:checked ~ #wrapper {
   background: white;
   color: black;
+}
+#light-input:checked ~ #wrapper blockquote p::before,
+#light-input:checked ~ #wrapper blockquote p::after {
+  color: var(--main-blue);
 }
 #light-input:checked ~ #wrapper .circle-icon-box .circle {
   border: 1px solid black;
@@ -594,7 +612,8 @@ body {
 #entry .post-entry > ul > li::before {
   content: '\2192';
   margin-right: 5px;
-  line-height: 1rem;
+  font-size: 1.8em;
+  line-height: 1em;
   color: var(--main-gold);
 }
 li::marker {
@@ -786,16 +805,30 @@ input[type='submit']:hover {
 
 /**** BOOKS ****/
 
+.book-recomendation-section {
+  width: inherit;
+}
 .books-box {
   width: 100%;
+  padding: 0 1em;
 }
 .books-box .book-section {
   margin: 1.5rem 0;
 }
+.books-box .book-section ul {
+  counter-reset: book-counter;
+}
 .books-box .book-element {
   text-align: left;
-  list-style: upper-roman;
-  padding: 1rem;
+  padding: 1rem 0;
+  counter-increment: book-counter;
+}
+.books-box .book-element::before {
+  content: counter(book-counter, lower-roman) ' ';
+  color: var(--main-gold);
+}
+.book-element p {
+  display: inline-block;
 }
 .books-box a {
   text-decoration: underline;
@@ -876,9 +909,9 @@ input[type='submit']:hover {
 .about .watermark {
   display: block;
   font-weight: bold;
-  font-family: 'Cinzel', serif;
   color: var(--light-grey);
   text-align: center;
+  font-size: 2.4em;
 }
 .about a {
   font-weight: bold;
@@ -897,6 +930,8 @@ input[type='submit']:hover {
 .about .presentation > ul > li::before {
   content: '\2192';
   margin-right: 5px;
+  font-size: 1.8em;
+  line-height: 1em;
   color: var(--main-gold);
 }
 .about .presentation ul li ul {
@@ -904,7 +939,7 @@ input[type='submit']:hover {
 }
 .about .presentation ul li ul > li {
   counter-increment: about-counter;
-  margin-left: 60px;
+  margin-left: 4em;
 }
 .about .presentation ul li ul > li::before {
   content: counter(about-counter, lower-roman) ' ';
@@ -956,7 +991,7 @@ input[type='submit']:hover {
   width: 100%;
 }
 #footer-icons {
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   flex-flow: row nowrap;
@@ -968,7 +1003,6 @@ input[type='submit']:hover {
 }
 #main-footer blockquote {
   background-color: inherit;
-  font-family: 'Cinzel', serif;
 }
 #main-footer .footer-quote:hover {
   opacity: 1;
