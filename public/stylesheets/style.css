@@ -1,16 +1,29 @@
 /**** FONT *****/
 
+/* quattrocento-regular - latin */
 @font-face {
   font-family: 'Quattrocento';
   font-style: normal;
   font-weight: 400;
   src: url('/fonts/quattrocento-v11-latin-regular.eot'); /* IE9 Compat Modes */
-  src: local('Quattrocento'),
-       url('/fonts/quattrocento-v11-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  src: url('/fonts/quattrocento-v11-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
        url('/fonts/quattrocento-v11-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
        url('/fonts/quattrocento-v11-latin-regular.woff') format('woff'), /* Modern Browsers */
        url('/fonts/quattrocento-v11-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
        url('/fonts/quattrocento-v11-latin-regular.svg#Quattrocento') format('svg'); /* Legacy iOS */
+}
+
+/* playfair-display-regular - latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/playfair-display-v20-latin-regular.eot'); /* IE9 Compat Modes */
+  src: url('/fonts/playfair-display-v20-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('/fonts/playfair-display-v20-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('/fonts/playfair-display-v20-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('/fonts/playfair-display-v20-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('/fonts/playfair-display-v20-latin-regular.svg#PlayfairDisplay') format('svg'); /* Legacy iOS */
 }
 
 /**** VARIABLES ****/
@@ -64,7 +77,7 @@ a {
 }
 a:hover,
 a:focus {
-  color: var(--main-gold);
+  color: var(--main-blue);
 }
 blockquote {
   background-color: rgba(0, 0, 0, .1);
@@ -83,7 +96,7 @@ blockquote p::after {
   content: '“';
   font-size: 1.8em;
   line-height: 0;
-  color: var(--main-gold);
+  color: var(--main-blue);
 }
 blockquote p::before {
   padding-right: .5em;
@@ -96,7 +109,7 @@ blockquote > cite {
   display: block;
 }
 .color {
-  color: var(--main-gold);
+  color: var(--main-blue);
 }
 .right {
   float: right;
@@ -105,23 +118,23 @@ blockquote > cite {
   float: left;
 }
 .border-bottom {
-  border-bottom: 1px solid var(--main-gold);
+  border-bottom: 1px solid var(--main-blue);
 }
 .border-top {
-  border-top: 1px solid var(--main-gold);
+  border-top: 1px solid var(--main-blue);
 }
 .border-right {
-  border-right: 1px solid var(--main-gold);
+  border-right: 1px solid var(--main-blue);
 }
 .border {
-  border: 1px solid var(--main-gold);
+  border: 1px solid var(--main-blue);
 }
 .outline {
-  outline: 1px solid var(--main-gold);
+  outline: 1px solid var(--main-blue);
   outline-offset: 5px;
 }
 .underline {
-  text-decoration: var(--main-gold) underline;
+  text-decoration: var(--main-blue) underline;
 }
 figure {
   display: flex;
@@ -178,7 +191,6 @@ figure {
 /**** WRAPPER ****/
 
 html {
-  background-color: var(--main-black);
   text-align: center;
   font-family: "Times New Roman", serif;
 }
@@ -221,16 +233,17 @@ body {
   -webkit-transform: rotate(-135deg);
 }
 .top-arrow:hover {
-  border-color: var(--main-gold);
+  border-color: var(--main-blue);
 }
 #wrapper {
-  color: white;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   min-height: 100%;
+  background-color: white;
+  color: black;
 }
 #language-label {
   position: fixed;
@@ -238,7 +251,7 @@ body {
   right: 10px;
   margin-top: 5px;
   cursor: pointer;
-  color: white;
+  color: black;
   font-weight: bold;
   opacity: .7;
   transition: opacity .5s ease-in-out;
@@ -253,7 +266,7 @@ body {
   content: '';
   width: 30%;
   height: 2px;
-  background: white;
+  background: black;
   position: absolute;
   bottom: -5px;
   right: 15px;
@@ -273,7 +286,7 @@ body {
   top: 0;
   right: 10px;
   margin-top: 5px;
-  color: white;
+  color: black;
 }
 #language-alt-links a {
   margin: 0 .5rem;
@@ -283,7 +296,7 @@ body {
   position: fixed;
   top: 0;
   left: 10px;
-  color: white;
+  color: black;
   font-weight: bold;
   margin-top: 5px;
   cursor: pointer;
@@ -300,7 +313,7 @@ body {
   content: "";
   width: 30%;
   height: 2px;
-  background: white;
+  background: black;
   position: absolute;
   bottom: -5px;
   left: 15px;
@@ -310,69 +323,88 @@ body {
   left: 0px;
 }
 #light-input:checked + #light-label {
-  color: black;
+  color: white;
 }
 #light-input:checked + #light-label span::after {
-  background: black;
+  background: white;
   left: 40px;
 }
 #light-input:checked + #light-label:hover span::after {
   left: 60px;
 }
 #light-input:checked ~ #wrapper {
-  background: white;
-  color: black;
+  background: var(--main-black);
+  color: white;
 }
 #light-input:checked ~ #wrapper blockquote p::before,
 #light-input:checked ~ #wrapper blockquote p::after {
-  color: var(--main-blue);
+  color: var(--main-gold);
 }
 #light-input:checked ~ #wrapper .circle-icon-box .circle {
-  border: 1px solid black;
+  border: 1px solid white;
 }
 #light-input:checked ~ #wrapper .circle-icon-box:hover .circle {
-  border-color: var(--main-blue);
+  border-color: var(--main-gold);
 }
 #light-input:checked ~ #wrapper .color {
-  color: var(--main-blue);
+  color: var(--main-gold);
 }
 #light-input:checked ~ #wrapper .border-top {
-  border-top: 1px solid var(--main-blue);
+  border-top: 1px solid var(--main-gold);
 }
 #light-input:checked ~ #wrapper .border-right {
-  border-right: 1px solid var(--main-blue);
+  border-right: 1px solid var(--main-gold);
 }
 #light-input:checked ~ #wrapper .border-bottom {
-  border-bottom: 1px solid var(--main-blue);
+  border-bottom: 1px solid var(--main-gold);
 }
 #light-input:checked ~ #wrapper .border {
-  border: 1px solid var(--main-blue);
+  border: 1px solid var(--main-gold);
 }
 #light-input:checked ~ #wrapper .outline {
-  outline: 1px solid var(--main-blue);
+  outline: 1px solid var(--main-gold);
   outline-offset: 5px;
 }
 #light-input:checked ~ #wrapper a:hover,
 #light-input:checked ~ #wrapper a:focus {
-  color: var(--main-blue);
+  color: var(--main-gold);
 }
 #light-input:checked ~ #wrapper a {
-  text-decoration-color: var(--main-blue);
+  text-decoration-color: var(--main-gold);
 }
 #light-input:checked ~ #language-label {
-  color: black;
+  color: white;
 }
 #light-input:checked ~ #language-label span::after {
-  background: black;
+  background: white;
 }
 #light-input:checked ~ #wrapper li::before {
-  color: var(--main-blue);
+  color: var(--main-gold);
 }
 #light-input:checked ~ #wrapper .underline {
-  text-decoration-color: var(--main-blue);
+  text-decoration-color: var(--main-gold);
 }
 #light-input:checked ~ #top-arrow .top-arrow:hover {
-  border-color: var(--main-blue);
+  border-color: var(--main-gold);
+}
+#light-input:checked ~ #wrapper input[type='submit'] {
+  border-color: var(--main-gold);
+  color: var(--main-gold);
+}
+#light-input:checked ~ #wrapper input[type='submit']:hover {
+  background-color: var(--main-gold);
+  color: var(--main-grey);
+}
+#light-input:checked ~ #wrapper textarea,
+#light-input:checked ~ #wrapper input[type='text'] {
+  border-color: var(--main-gold);
+}
+#light-input:checked ~ #wrapper input[type='text']:focus,
+#light-input:checked ~ #wrapper textarea:focus {
+  box-shadow: 3px 3px var(--main-gold);
+}
+#light-input:checked ~ #wrapper .donation-button {
+  border-color: var(--main-gold);
 }
 /**** LOADER ****/
 
@@ -409,7 +441,7 @@ body {
   margin: 5px 0;
 }
 .circle-icon-box .circle {
-  border: 1px solid white;
+  border: 1px solid black;
   border-radius: 50%;
   position: absolute;
   top: 0;
@@ -421,7 +453,7 @@ body {
   transition: border-color .6s ease-in-out;
 }
 .circle-icon-box:hover .circle {
-  border-color: var(--main-gold);
+  border-color: var(--main-blue);
 }
 .circle-icon-box .big {
   width: 50px;
@@ -517,7 +549,7 @@ body {
 }
 .nav-blog > ol > li::before {
   content: counter(nav-counter, upper-roman);
-  color: var(--main-gold);
+  color: var(--main-blue);
 }
 .nav-blog ol > li:hover {
   background-color: Rgba(0, 0, 0, .1);
@@ -590,7 +622,7 @@ body {
 }
 .tags a {
   text-decoration: underline;
-  text-decoration-color: var(--main-gold);
+  text-decoration-color: var(--main-blue);
   font-weight: bold;
   margin: 0 .8em;
 }
@@ -614,10 +646,10 @@ body {
   margin-right: 5px;
   font-size: 1.8em;
   line-height: 1em;
-  color: var(--main-gold);
+  color: var(--main-blue);
 }
 li::marker {
-  color: var(--main-gold);
+  color: var(--main-blue);
 }
 #entry ul li ul > li {
   list-style: lower-roman;
@@ -625,7 +657,7 @@ li::marker {
 }
 #entry a {
   text-decoration: underline;
-  text-decoration-color: var(--main-gold);
+  text-decoration-color: var(--main-blue);
 }
 #entry blockquote a {
   text-decoration: none;
@@ -762,26 +794,26 @@ input[type='text'] {
   border: none;
   padding: .8rem;
   margin: .8rem 0;
-  border: 1px solid var(--main-gold);
+  border: 1px solid var(--main-blue);
 }
 input[type='text']:focus,
 textarea:focus {
-  box-shadow: 3px 3px var(--main-gold);
+  box-shadow: 3px 3px var(--main-blue);
 }
 textarea {
-  border: 1px solid var(--main-gold);
+  border: 1px solid var(--main-blue);
   padding: 1.2rem;
   margin: .8rem 0;
 }
 input[type='submit'] {
-  border: 1px solid var(--main-gold);
-  color: var(--main-gold);
+  border: 1px solid var(--main-blue);
+  color: var(--main-blue);
   background-color: inherit;
   cursor: pointer;
   padding: .8rem;
 }
 input[type='submit']:hover {
-  background-color: var(--main-gold);
+  background-color: var(--main-blue);
   color: white;
 }
 .extra-aside {
@@ -797,7 +829,7 @@ input[type='submit']:hover {
   word-wrap: break-word;
 }
 .donation-button {
-  border: 1px solid var(--main-gold);
+  border: 1px solid var(--main-blue);
   border-radius: 5px;
   padding: .5rem;
   margin: 1rem;
@@ -825,14 +857,14 @@ input[type='submit']:hover {
 }
 .books-box .book-element::before {
   content: counter(book-counter, lower-roman) ' ';
-  color: var(--main-gold);
+  color: var(--main-blue);
 }
 .book-element p {
   display: inline-block;
 }
 .books-box a {
   text-decoration: underline;
-  text-decoration-color: var(--main-gold);
+  text-decoration-color: var(--main-blue);
 }
 
 
@@ -932,7 +964,7 @@ input[type='submit']:hover {
   margin-right: 5px;
   font-size: 1.8em;
   line-height: 1em;
-  color: var(--main-gold);
+  color: var(--main-blue);
 }
 .about .presentation ul li ul {
   counter-reset: about-counter;
@@ -943,7 +975,7 @@ input[type='submit']:hover {
 }
 .about .presentation ul li ul > li::before {
   content: counter(about-counter, lower-roman) ' ';
-  color: var(--main-gold);
+  color: var(--main-blue);
 }
 .about .row {
   display: flex;
@@ -1021,7 +1053,7 @@ input[type='submit']:hover {
   transition: all .3s ease-in-out;
 }
 #main-footer .logo:hover {
-  fill: var(--main-gold);
+  fill: var(--main-blue);
 }
 #footer-icons .logo-info {
   opacity: 0;
