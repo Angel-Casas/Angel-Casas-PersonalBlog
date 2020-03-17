@@ -99,3 +99,13 @@ html
       document.querySelector('body').className = document.querySelector('body').className.replace('no-js', 'js')
       document.querySelector('#language-label').className = document.querySelector('#language-label').className.replace('hidden', 'show')
       document.querySelector('#language-alt-links').className = document.querySelector('#language-alt-links').className.replace('show', 'hidden')
+    script(type='text/javascript').
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(function(reg) {
+            console.log('Service Worker Registered!', reg);
+          })
+          .catch(function(err) {
+            console.log('Error regustering Service Worker', err);
+          });
+        }

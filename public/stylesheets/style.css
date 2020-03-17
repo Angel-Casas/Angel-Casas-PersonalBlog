@@ -406,6 +406,13 @@ body {
 #light-input:checked ~ #wrapper .donation-button {
   border-color: var(--main-gold);
 }
+#light-input:checked ~ #wrapper .tags a {
+  color: var(--main-gold);
+  border-color: var(--main-gold);
+}
+#light-input:checked ~ #wrapper .tags a:hover {
+  box-shadow: 3px 3px var(--main-gold);
+}
 /**** LOADER ****/
 
 #loader-wrapper {
@@ -621,10 +628,18 @@ body {
   margin: 1em 0;
 }
 .tags a {
-  text-decoration: underline;
-  text-decoration-color: var(--main-blue);
   font-weight: bold;
-  margin: 0 .8em;
+  margin: .8em .8em 0 0;
+  color: var(--main-blue);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--main-blue);
+  padding: .6em 1.1em;
+  transition: all .15s ease-in-out;
+}
+.tags a:hover {
+  box-shadow: 3px 3px var(--main-blue);
+  transform: scale(1.1);
 }
 #entry {
   width: 100%;

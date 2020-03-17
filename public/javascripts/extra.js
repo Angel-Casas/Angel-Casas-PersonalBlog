@@ -48,17 +48,6 @@ window.addEventListener('load', function() {
   } catch(err) {
     console.log('No language input');
   }
-
-  // Check whether a like button exists and add an eventListener
-  try {
-    let likeBtn = document.querySelector('.button-like');
-
-    likeBtn.addEventListener('click', function(event) {
-      likeBtn.classList.toggle('liked');
-    });
-  } catch(err) {
-    console.log('No like button detected.');
-  }
 });
 
 // For IE only
@@ -105,17 +94,6 @@ if (window.attachEvent) {
       document.querySelector('.js').style.display = 'block';
     } catch(err) {
       console.log('No language input');
-    }
-
-    // Check whether a like button exists and add an eventListener
-    try {
-      let likeBtn = document.querySelector('.button-like');
-
-      likeBtn.attachEvent('click', function(event) {
-        likeBtn.classList.toggle('liked');
-      });
-    } catch(err) {
-      console.log('No like button detected.');
     }
   })
 }
