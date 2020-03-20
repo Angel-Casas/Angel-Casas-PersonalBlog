@@ -47,10 +47,8 @@ exports.index = function(req, res) {
             }
             // Successful so render
             if (req.params.lang === 'EN') {
-              console.log('English');
               res.render('index-EN', { title: 'Welcome', post: post, tags: tagArray})
             } else if (req.params.lang === 'ES') {
-              console.log('ESPAÑOL')
               res.render('index-ES', { title: 'Bienvenido', post: post, tags: tagArray});
             } else {
               res.redirect('/ES');
