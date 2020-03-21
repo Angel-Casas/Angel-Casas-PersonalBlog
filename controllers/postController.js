@@ -86,10 +86,8 @@ Blog.find({section: req.params.section.toUpperCase()}).
     var translated = '';
     console.log(req.params.section.toUpperCase());
     if (req.params.lang === 'EN') {
-      console.log('English');
       res.render('post_list-EN', {title: req.params.section.toUpperCase(), post_list: list_section_posts});
     } else {
-      console.log('ESPAÑOL');
       switch (req.params.section.toUpperCase()) {
         case 'MATHEMATICS':
           translated = 'Matemáticas';
@@ -119,10 +117,8 @@ exports.post_tag_list = function (req, res, next) {
       }
       // On success
       if (req.params.lang === 'EN') {
-        console.log('English');
         res.render('tag_list-EN', { title: req.params.tag, tag_list: tag_list });
       } else {
-        console.log('ESPAÑOL')
         res.render('tag_list-ES', { title: req.params.tag, tag_list: tag_list });
       }
     });
@@ -147,11 +143,8 @@ exports.post_instance = function(req, res, next) {
           // On success
           console.log(post);
           if (req.params.lang === 'EN') {
-            console.log('English');
-            console.log(post_list);
             res.render('post-EN', {title: post.title, post: post, post_list: post_list });
           } else {
-            console.log('ESPAÑOL')
             res.render('post-ES', {title: post.title, post: post, post_list: post_list });
           }
         });
@@ -211,15 +204,14 @@ exports.post_comment_post = function(req, res, next) {
         return next(err);
       }
       console.log('Successfully created comment and saved: ' + post.comments[post.comments.length-1]);
-      res.redirect('/posts/'+req.params.section+'/'+req.params.id+'#blog-comments');
-
+      console.log(req.params.section);
+      res.redirect('/'+req.params.lang+'/posts/'+req.params.section+'/'+req.params.id+'#blog-comments');
     });
   });
 }
 
 // Display post like on POST
 exports.post_like_post = function(req, res, next) {
-  console.log('Clicked');
   Blog.findById(req.params.id, function (err, post) {
     if (err) {
       console.log('post like error:' + err);
@@ -241,10 +233,8 @@ exports.post_like_post = function(req, res, next) {
 // handle create post on GET
 exports.post_create_get = function(req, res) {
   if (req.params.lang === 'EN') {
-    console.log('English');
     res.render('post_create-EN');
   } else {
-    console.log('ESPAÑOL')
     res.render('post_create-ES');
   }
 }
@@ -332,10 +322,8 @@ exports.post_edit_get =  function (req, res, next) {
       }
       // On success
       if (req.params.lang === 'EN') {
-        console.log('English');
         res.render('post_edit-EN', {post: post});
       } else {
-        console.log('ESPAÑOL')
         res.render('post_edit-ES', {post: post});
       }
     });
@@ -406,10 +394,8 @@ exports.post_edit_post = [
         // Successful
         console.log('Updated post with new content');
         if (req.params.lang === 'EN') {
-          console.log('English');
           res.redirect('/EN/' + item.url);
         } else {
-          console.log('ESPAÑOL')
           res.redirect('/ES/' + item.url);
         }
       });
@@ -426,10 +412,8 @@ exports.post_delete_get = function (req, res, next) {
     }
     // On success
     if (req.params.lang === 'EN') {
-      console.log('English');
       res.render('post_delete-EN', { post: post });
     } else {
-      console.log('ESPAÑOL')
       res.render('post_delete-ES', { post: post });
     }
   });
@@ -444,10 +428,8 @@ exports.post_delete_post = function (req, res, next) {
     }
     // On success
     if (req.params.lang === 'EN') {
-      console.log('English');
       res.redirect('/EN');
     } else {
-      console.log('ESPAÑOL')
       res.redirect('/ES');
     }
   });
@@ -456,10 +438,8 @@ exports.post_delete_post = function (req, res, next) {
 // Handle about section on GET
 exports.about_section_get = function (req, res, next) {
   if (req.params.lang === 'EN') {
-    console.log('English');
-    res.render('about-EN')
+    res.render('about-EN');
   } else {
-    console.log('ESPAÑOL')
     res.render('about-ES');
   }
 }
@@ -467,10 +447,17 @@ exports.about_section_get = function (req, res, next) {
 // Handle projects section on GET
 exports.projects_section_get = function (req, res, next) {
   if (req.params.lang === 'EN') {
-    console.log('English');
-    res.render('projects-EN')
+    res.render('projects-EN');
   } else {
-    console.log('ESPAÑOL')
     res.render('projects-ES');
   }
 }
+
+// Privacy policy page on GET
+exports.privacy_get = function (req, res, next) {
+  if (req.params.lang == 'EN') {
+    res.render('privacy-policy-EN');
+  } else {
+    res.render('privacy-policy-ES');
+  }
+};

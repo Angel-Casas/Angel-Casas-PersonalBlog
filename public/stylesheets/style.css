@@ -545,7 +545,7 @@ html {
   counter-reset: nav-counter;
 }
 .nav-blog li {
-  padding: 1rem .2rem;
+  padding: 1rem .2rem 0;
   text-align: center;
 }
 .nav-blog > ol > li {
@@ -1017,7 +1017,7 @@ input[type='submit']:hover {
 #main-footer {
   width: 100%;
   background-color: rgba(0, 0, 0, .1);
-  padding: 4rem 1rem;
+  padding: 1rem;
 }
 .footer-personal {
   display: flex;
@@ -1077,6 +1077,11 @@ input[type='submit']:hover {
 #footer-icons a:hover .logo-info {
   opacity: 1;
 }
+#main-footer .copyright {
+  display: block;
+  width: 100%;
+  padding: 1rem 0;
+}
 /**** MEDIA QUERIES ****/
 @media (min-width: 500px) {
   .inline-figure {
@@ -1133,7 +1138,7 @@ input[type='submit']:hover {
     max-width: 400px;
   }
 }
-@media (max-height: 800px) {
+@media (max-height: 900px) {
   .nav-blog {
     position: relative;
     top: 0;

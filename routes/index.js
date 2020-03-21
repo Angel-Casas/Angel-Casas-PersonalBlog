@@ -33,10 +33,10 @@ router.get('/:lang/posts/:section/:id', postController.post_instance);
 router.get('/posts/:section/:id/img', postController.post_cover);
 
 // GET request for post comment
-router.get('/posts/:section/:id/comment', postController.post_comment_get);
+router.get('/:lang/posts/:section/:id/comment', postController.post_comment_get);
 
 // POST request for post comment
-router.post('/posts/:section/:id/comment', postController.post_comment_post);
+router.post('/:lang/posts/:section/:id/comment', postController.post_comment_post);
 
 // GET request for like comment
 router.post('/posts/:section/:id/like', postController.post_like_post);
@@ -69,5 +69,10 @@ router.get('/books/create', bookController.books_create_get);
 
 // POST request for books create
 router.post('/books/create', bookController.books_create_post);
+
+// PRIVACY POLICY
+
+// GET request for privacy policy page
+router.get('/:lang/privacy-policy', postController.privacy_get);
 
 module.exports = router;

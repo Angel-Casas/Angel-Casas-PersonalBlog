@@ -1,6 +1,5 @@
 // Extra functionality for the Blog
 // Light/Dark theme persistent
-// Like button toogle
 
 window.addEventListener('load', function() {
   // Get input and value of light input
@@ -44,7 +43,6 @@ window.addEventListener('load', function() {
         window.location = window.location.href.replace('ES', 'EN');
       }
     });
-    document.querySelector('.js').style.display = 'block';
   } catch(err) {
     console.log('No language input');
   }
@@ -91,9 +89,19 @@ if (window.attachEvent) {
       if (langInputValue) {
         lang_input.checked = true;
       }
-      document.querySelector('.js').style.display = 'block';
     } catch(err) {
       console.log('No language input');
     }
   })
 }
+
+// Scroll To Top function
+window.onscroll = function() { scrollFunction() };
+
+function scrollFunction() {
+  if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+    document.querySelector('#top-arrow').className = 'show';
+  } else {
+    document.querySelector('#top-arrow').className = 'hidden';
+  }
+};
