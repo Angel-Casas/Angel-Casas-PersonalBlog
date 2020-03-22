@@ -155,19 +155,6 @@ exports.post_instance = function(req, res, next) {
   }
 }
 
-// Display post instance cover image
-exports.post_cover = function(req, res, next) {
-  Blog.findById(req.params.id, function (err, post) {
-    if (err) {
-      console.log('findById post cover error:' + err);
-      return next(err);
-    }
-    // On success
-    res.contentType(post.cover.contentType);
-    res.send(post.cover.data);
-  });
-}
-
 // Display post comment on GET
 exports.post_comment_get = function(req, res) {
   res.send('NOT IMPLEMENTED: GET comment');
@@ -208,26 +195,6 @@ exports.post_comment_post = function(req, res, next) {
       res.redirect('/'+req.params.lang+'/posts/'+req.params.section+'/'+req.params.id+'#blog-comments');
     });
   });
-}
-
-// Display post like on POST
-exports.post_like_post = function(req, res, next) {
-  Blog.findById(req.params.id, function (err, post) {
-    if (err) {
-      console.log('post like error:' + err);
-      return next(err)
-    }
-    // On success
-    console.log('Clicked');
-    post.meta.votes += 1;
-    post.save(function (err) {
-      if (err) {
-        console.log('post like save error:' + err);
-        return next(err);
-      }
-      res.redirect('/posts/'+req.params.section+'/'+req.params.id+'#entry');
-    });
-  })
 }
 
 // handle create post on GET

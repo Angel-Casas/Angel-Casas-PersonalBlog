@@ -409,6 +409,9 @@ html {
 #light-input:checked ~ #wrapper .tags a:hover {
   box-shadow: 3px 3px var(--main-gold);
 }
+#light-input:checked ~ #wrapper #main-footer .logo:hover {
+  fill: var(--main-gold);
+}
 /**** LOADER ****/
 
 #loader-wrapper {
@@ -1031,7 +1034,7 @@ input[type='submit']:hover {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
 }
 .footer-div {
   height: 100%;
@@ -1043,6 +1046,7 @@ input[type='submit']:hover {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+  align-items: center;
 }
 #main-footer .footer-quote {
   opacity: .7;
@@ -1054,11 +1058,9 @@ input[type='submit']:hover {
 #main-footer .footer-quote:hover {
   opacity: 1;
 }
-#main-footer a {
-  text-decoration: underline;
-}
 #footer-icons a {
   position: relative;
+  height: 100%;
 }
 #main-footer .logo {
   width: 50px;
@@ -1132,7 +1134,7 @@ input[type='submit']:hover {
   }
   #footer-box {
     flex-flow: row nowrap;
-    align-items: flex-end;
+    align-items: flex-start;
   }
   .footer-div {
     max-width: 400px;

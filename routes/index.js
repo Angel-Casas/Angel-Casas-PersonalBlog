@@ -29,17 +29,11 @@ router.get('/:lang/posts/find/:tag', postController.post_tag_list);
 // GET request for post instance
 router.get('/:lang/posts/:section/:id', postController.post_instance);
 
-// GET request for post instance cover
-router.get('/posts/:section/:id/img', postController.post_cover);
-
 // GET request for post comment
 router.get('/:lang/posts/:section/:id/comment', postController.post_comment_get);
 
 // POST request for post comment
 router.post('/:lang/posts/:section/:id/comment', postController.post_comment_post);
-
-// GET request for like comment
-router.post('/posts/:section/:id/like', postController.post_like_post);
 
 // GET request for creating post PRIVATE
 router.get('/:lang/new', postController.post_create_get);
