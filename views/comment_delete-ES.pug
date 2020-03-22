@@ -1,0 +1,14 @@
+extends layout-ES
+
+block content
+  header
+    h2.color Borrar comentarios
+  for comment in post.comments
+    p
+      strong= comment.name
+    p= comment.content
+    p= comment._id
+  form(method='POST', action='delete_comment')
+    label(for='title-edit') Listado
+    input(id='title-edit', name='list', class='form-input', type='text', placeholder="Listado de _id's separados por coma.", required)
+    input(type='submit', class='form-button', value='Submit')

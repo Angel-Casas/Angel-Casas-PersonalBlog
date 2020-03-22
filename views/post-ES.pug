@@ -51,12 +51,12 @@ block content
               - commentIndex += 1;
           else
             li Se el primero en Comentar!
-        form#comments-form(method='POST', action=post.url + '/comment')
+        form#comments-form(method='POST', action=post._id + '/comment')
           h4.color Deja tu comentario
           label(for='comment-name')
-            input(type='text', placeholder='Nombre (Opcional)', maxlength=20, id='comment-name')
+            input(type='text', name='name', placeholder='Nombre (Opcional)', maxlength=20, id='comment-name')
           label(for='comment-content')
-            textarea(type='text', rows='5', cols='30', placeholder='Comentario', id='comment-content')
+            textarea(type='text', name='content', rows='5', cols='30', placeholder='Comentario', id='comment-content')
           input(type='submit', value='Submit', class='form-button')
       // End of #blog-comments
     // End of .post

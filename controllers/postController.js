@@ -183,7 +183,8 @@ exports.post_comment_post = function(req, res, next) {
     post.comments.push({
       name: req.body.name ? req.body.name : 'Anonymous',
       content: req.body.content,
-      date: new Date()
+      date: new Date(),
+      _id: (new Date()).getTime().toString(36) + Math.random().toString(36).slice(2)
     })
     post.save(function (err) {
       if (err) {
@@ -191,11 +192,58 @@ exports.post_comment_post = function(req, res, next) {
         return next(err);
       }
       console.log('Successfully created comment and saved: ' + post.comments[post.comments.length-1]);
-      console.log(req.params.section);
       res.redirect('/'+req.params.lang+'/posts/'+req.params.section+'/'+req.params.id+'#blog-comments');
     });
   });
 }
+
+// Display delete comment form
+exports.delete_comment_get = function(req, res, next) {
+  Blog.findById(req.params.id).
+    exec(function(err, post) {
+      if (err) {
+        console.log("Error for post edit on GET: " + err);
+        return next(err);
+      }
+      // On success
+      if (req.params.lang === 'EN') {
+        res.render('comment_delete-EN', {post: post});
+      } else {
+        res.render('comment_delete-ES', {post: post});
+      }
+    });
+};
+
+// Handle delete comment form
+exports.delete_comment_post = function(req, res, next) {
+  Blog.findById(req.params.id).
+    exec(function(err, post) {
+      if (err) {
+        console.log("Error for post edit on GET: " + err);
+        return next(err);
+      }
+      // On success
+      try {
+        for (id of req.body.list.split(', ')) {
+          post.comments = post.comments.filter(elem => elem._id !== id);
+        }
+        post.save(function(err) {
+          if (err) {
+            console.log('Error saving the post:' + err);
+            return next(err);
+          }
+          // Successful so redirect to post
+          if (req.params.lang === 'EN') {
+            res.render('comment_delete-EN', {post: post});
+          } else {
+            res.render('comment_delete-ES', {post: post});
+          }
+        })
+      } catch (error) {
+        console.log('Error in try statement: ' + error);
+      }
+    });
+};
 
 // handle create post on GET
 exports.post_create_get = function(req, res) {

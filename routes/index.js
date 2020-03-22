@@ -35,6 +35,12 @@ router.get('/:lang/posts/:section/:id/comment', postController.post_comment_get)
 // POST request for post comment
 router.post('/:lang/posts/:section/:id/comment', postController.post_comment_post);
 
+// GET request for deleting comment
+router.get('/:lang/posts/:section/:id/delete_comment', postController.delete_comment_get);
+
+// POST request for deleting comment
+router.post('/:lang/posts/:section/:id/delete_comment', postController.delete_comment_post);
+
 // GET request for creating post PRIVATE
 router.get('/:lang/new', postController.post_create_get);
 
