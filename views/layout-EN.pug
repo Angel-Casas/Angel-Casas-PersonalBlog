@@ -1,5 +1,5 @@
 doctype html
-html
+html(lang='en-EN')
   head
     title Ángel Casas Pescador - Personal Blog
     meta(charset='UTF-8')
@@ -11,7 +11,7 @@ html
     script(src='/javascripts/toc.js')
     script(src='/javascripts/extra.js')
     link(rel='icon', href='')
-  body.no-js
+  body
     input#light-input.sr-only(type='checkbox', autocomplete='off')
     label#light-label(for='light-input')
       span Light | Dark
@@ -25,8 +25,6 @@ html
     // Language-input EN/ES mode
     a#top-arrow(href="#wrapper")
       .top-arrow
-    #loader-wrapper
-    // End of #loader-wrapper
     #wrapper
       header#main-header
         h1.sr-only &Aacute;ngel Casas Pescador
@@ -98,13 +96,4 @@ html
       document.querySelector('#language-label').className = document.querySelector('#language-label').className.replace('hidden', 'show')
       document.querySelector('#language-alt-links').className = document.querySelector('#language-alt-links').className.replace('show', 'hidden')
       document.querySelector('#top-arrow').className = 'hidden';
-    script(type='text/javascript').
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js')
-          .then(function(reg) {
-            console.log('Service Worker Registered!', reg);
-          })
-          .catch(function(err) {
-            console.log('Error regustering Service Worker', err);
-          });
-        }
+      

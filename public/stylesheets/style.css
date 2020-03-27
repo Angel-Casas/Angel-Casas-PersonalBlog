@@ -42,8 +42,6 @@
 html, body {
   height: 100%;
 }
-body {
-}
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Quattrocento', 'Times New Roman', serif;
   font-weight: normal;
@@ -70,6 +68,11 @@ h6 {
 h2:target,
 h3:target,
 h4:target {
+  animation: highlight 1s ease-in-out;
+}
+section:target > h2,
+section:target > h3,
+section:target > h4 {
   animation: highlight 1s ease-in-out;
 }
 a {
@@ -107,6 +110,9 @@ blockquote p::after {
 }
 blockquote > cite {
   display: block;
+}
+.active > a {
+  color: var(--main-blue);
 }
 .color {
   color: var(--main-blue);
@@ -191,12 +197,6 @@ figure {
 html {
   text-align: center;
   font-family: "Times New Roman", serif;
-}
-.no-js {
-  display: block;
-}
-.js {
-  display: none;
 }
 .hidden {
   display: none !important;
@@ -345,6 +345,9 @@ html {
 #light-input:checked ~ #wrapper .color {
   color: var(--main-gold);
 }
+#light-input:checked ~ #wrapper .active > a {
+  color: var(--main-gold);
+}
 #light-input:checked ~ #wrapper .border-top {
   border-top: 1px solid var(--main-gold);
 }
@@ -409,12 +412,12 @@ html {
 #light-input:checked ~ #wrapper .tags a:hover {
   box-shadow: 3px 3px var(--main-gold);
 }
+#light-input:checked ~ #wrapper .box .detail {
+  color: black;
+  background-color: var(--main-gold);
+}
 #light-input:checked ~ #wrapper #main-footer .logo:hover {
   fill: var(--main-gold);
-}
-/**** LOADER ****/
-
-#loader-wrapper {
 }
 
 /**** HEADER ****/
@@ -541,6 +544,7 @@ html {
   display: inline-block;
   width: 100%;
   height: 100%;
+  transition: all 100ms ease-in-out;
   }
 .nav-blog > ol {
   padding: 1rem .2rem;
@@ -597,14 +601,8 @@ html {
 .post-preview > a {
   width: 100%;
 }
-.post-preview > p {
-  width: 100%;
-}
 .post-preview .preview {
-  display: block;
   width: 100%;
-}
-.post-date {
 }
 .post-wrapper {
   width: 100%;
@@ -719,56 +717,6 @@ li::marker {
   align-items: center;
   color: var(--light-grey);
 }
-#input-like {
-  display: none;
-}
-.button-like {
-  border: 2px solid var(--light-grey);
-  background-color: transparent;
-  text-decoration: none;
-  padding: 1rem;
-  border-radius: 3rem;
-  transition: all ease 0.3s;
-  cursor: pointer;
-}
-
-.button-like span {
-  margin-left: 0.5rem;
-}
-.button-like .icon {
-  width: 14px;
-  height: 14px;
-  background: url('/images/like-red.png');
-  background-size: 14px 14px;
-  display: inline-block;
-}
-
-.button-like .icon,
-.button-like span {
-  transition: all ease 0.3s;
-}
-
-.button-like:focus {
-  background-color: transparent;
-}
-
-.button-like:focus .icon,
-.button-like:focus span {
-  color: var(--light-grey);
-}
-
-.button-like:hover {
-  border-color: #cc4b37;
-}
-
-.button-like:hover .icon,
-.button-like:hover span {
-  color: #cc4b37;
-}
-.button-like:hover .icon {
-  background: url('/images/like-red.png');
-  background-size: 14px 14px;
-}
 #share-box .a2a_kit {
   display: flex;
   flex-flow: row nowrap;
@@ -783,15 +731,10 @@ li::marker {
   line-height: 2.4rem;
 }
 .meta .author-name {
-  color: inherit;
   text-transform: uppercase;
 }
 .comment-number {
-}
-.comment-number a {
   float: right;
-  color: rgba(0, 0, 0, .4);
-  text-decoration: none;
 }
 #blog-comments .quote {
   text-align: left;
@@ -907,7 +850,7 @@ input[type='submit']:hover {
   height: 350px;
 }
 .box:hover .detail {
-  opacity: 1;
+  opacity: .9;
 }
 .box a {
   display: inline-block;
@@ -927,13 +870,14 @@ input[type='submit']:hover {
   left: 0;
   opacity: 0;
   color: white;
+  font-size: 1.8rem;
   width: 100%;
   height: 100%;
   padding: 0 .5rem;
   text-align: center;
   vertical-align: middle;
   transition: all .3s ease-in-out;
-  background-color: rgba(0, 0, 0, .8);
+  background-color: var(--main-blue);
 }
 .box .detail .alert {
   color: var(--main-red);
@@ -945,9 +889,6 @@ input[type='submit']:hover {
 .about {
   text-align: left;
   padding: 5px;
-}
-.about h2,
-.about h3 {
 }
 .about .presentationImg {
   display: block;
@@ -1094,11 +1035,11 @@ input[type='submit']:hover {
   }
 }
 
-/* Only stick if you can fit */
 @media (min-width: 1000px) {
   #main-header {
     flex-flow: row nowrap;
   }
+  /* Only sticky if you can fit */
   .nav-blog {
     position: -webkit-sticky;
     position: sticky;

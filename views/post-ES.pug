@@ -22,7 +22,6 @@ block content
         .post-entry
           | !{post.español.body}
         .blog-footer
-          div.reactions
         #share-box
           h5.color Comparte
           .a2a_kit.a2a_kit_size_32.a2a_default_style
@@ -42,8 +41,8 @@ block content
             li.border-bottom(id='comment-'+commentIndex)
               .meta
                 .comment-number
-                  a(href="#comment-"+commentIndex)= commentIndex
-                span.author-name= comment.name
+                  span.color= commentIndex
+                span.author-name.color= comment.name
                 |  dijo el 
                 small= time.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
               .quote

@@ -48,10 +48,8 @@ exports.index = function(req, res) {
             // Successful so render
             if (req.params.lang === 'EN') {
               res.render('index-EN', { title: 'Welcome', post: post, tags: tagArray})
-            } else if (req.params.lang === 'ES') {
-              res.render('index-ES', { title: 'Bienvenido', post: post, tags: tagArray});
             } else {
-              res.redirect('/ES');
+              res.render('index-ES', { title: 'Bienvenido', post: post, tags: tagArray});
             }
           });
       });
@@ -233,12 +231,8 @@ exports.delete_comment_post = function(req, res, next) {
             return next(err);
           }
           // Successful so redirect to post
-          if (req.params.lang === 'EN') {
-            res.render('comment_delete-EN', {post: post});
-          } else {
-            res.render('comment_delete-ES', {post: post});
-          }
-        })
+          res.redirect('/'+req.params.lang+'/posts/'+req.params.section+'/'+req.params.id+'#blog-comments');
+        });
       } catch (error) {
         console.log('Error in try statement: ' + error);
       }

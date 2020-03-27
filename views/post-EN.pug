@@ -22,7 +22,6 @@ block content
         .post-entry
           | !{post.english.body}
         .blog-footer
-          div.reactions
         #share-box
           h5.color Share this
           .a2a_kit.a2a_kit_size_32.a2a_default_style
@@ -35,7 +34,6 @@ block content
         header
           h4.color Comments
         .comment-count #{post.comments.length} Comments.
-        //- div#vuukle-comments
         ul.comment-ul
           - var commentIndex = 1;
           each comment in post.comments
@@ -43,8 +41,8 @@ block content
             li.border-bottom(id='comment-'+commentIndex)
               .meta
                 .comment-number
-                  a(href="#comment-"+commentIndex)= commentIndex
-                span.author-name= comment.name
+                  span.color= commentIndex
+                span.author-name.color= comment.name
                 |  said on 
                 small= time.toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
               .quote

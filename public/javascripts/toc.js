@@ -59,14 +59,13 @@
     var setAttrs = function (overwrite, prefix) {
         return function (src, target, index) {
             var content = src.textContent;
-            var pre = prefix + '-' + index;
+            var pre = prefix + '-' + (index + 1);
             target.textContent = content;
 
-            var id = overwrite ? pre : (src.id || pre);
+            var id = overwrite ? pre : (src.parentElement.id || pre);
 
             id = encodeURIComponent(id);
 
-            src.id = id;
             target.href = '#' + id;
         };
     };
@@ -150,3 +149,25 @@
         window.initTOC = initTOC;
     }
 }(window));
+
+// Style active nav element once linked ID is intersected (appears in the display)
+window.addEventListener('DOMContentLoaded', () => {
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      console.log(entry);
+      const id = entry.target.getAttribute('id');
+      if (entry.intersectionRatio > 0) {
+        document.querySelector(`nav li a[href="#${id}"]`).parentElement.classList.add('active');
+      } else {
+        document.querySelector(`nav li a[href="#${id}"]`).parentElement.classList.remove('active');
+      }
+    });
+  });
+
+  // Track all .color that have an `id` applied
+  document.querySelectorAll('section[id]').forEach((section) => {
+    observer.observe(section);
+  });
+
+});

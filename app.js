@@ -13,8 +13,8 @@ var app = express();
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
-// var dev_db_url = 'mongodb://localhost:27017/Blog';
-var dev_db_url = 'mongodb+srv://Admin:75tofATiF9UNWcJ6@cluster0-qldfs.mongodb.net/blog_database?retryWrites=true&w=majority';
+var dev_db_url = 'mongodb://localhost:27017/Blog';
+// var dev_db_url = 'mongodb+srv://Admin:75tofATiF9UNWcJ6@cluster0-qldfs.mongodb.net/blog_database?retryWrites=true&w=majority';
 var mongoDB = process.env.MONGODB_URI || dev_db_url;
 const option = {
     socketTimeoutMS: 90000,
@@ -50,6 +50,15 @@ app.use(function (req, res, next) {
   next(createError(404, 'Wrong page, please go back to the Homepage.'));
 });
 
+
+// Add Service Worker
+app.get("/service-worker.js", (req, res) => {
+  // Send the correct headers
+  res.header('Content-Type', 'text/javascript');
+  res.sendFile(path.join(__dirname, "service-worker.js"));
+});
+
+
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
@@ -58,7 +67,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error-EN');
 });
 
 module.exports = app;

@@ -8,7 +8,7 @@ block content
       strong= comment.name
     p= comment.content
     p= comment._id
-  form(method='POST', action='delete_comment')
+  form(method='POST', action='')
     label(for='title-edit') List
     input(id='title-edit', name='list', class='form-input', type='text', placeholder="Comma separated list of _id's.", required)
     input(type='submit', class='form-button', value='Submit')

@@ -5,6 +5,7 @@ var router = express.Router();
 var postController = require('../controllers/postController');
 var bookController = require('../controllers/bookController');
 
+
 // Home page route.
 router.get('/', postController.index);
 router.get('/:lang', postController.index);
