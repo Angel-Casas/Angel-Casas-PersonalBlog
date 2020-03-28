@@ -1,5 +1,5 @@
 doctype html
-html(lang='en-EN')
+html(lang='en-GB')
   head
     title Ángel Casas Pescador - Personal Blog
     meta(charset='UTF-8')
@@ -8,10 +8,17 @@ html(lang='en-EN')
     link(rel='stylesheet', href='/stylesheets/reset.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.5.0/css/all.css', integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU', crossorigin='anonymous')
-    script(src='/javascripts/toc.js')
     script(src='/javascripts/extra.js')
+    script(src='/javascripts/toc.js')
     link(rel='icon', href='')
   body
+    div.theme-box.has-dropdown
+      a(href='#') Theme
+      ul.dropdown
+        li.dropdown-item
+          a#light(href='#') Light
+        li.dropdown-item
+          a#dark(href='#') Dark
     input#light-input.sr-only(type='checkbox', autocomplete='off')
     label#light-label(for='light-input')
       span Light | Dark
@@ -97,3 +104,21 @@ html(lang='en-EN')
       document.querySelector('#language-alt-links').className = document.querySelector('#language-alt-links').className.replace('show', 'hidden')
       document.querySelector('#top-arrow').className = 'hidden';
       
+      const lightInput = document.getElementById('light-input');
+      const body = document.body;
+
+      if (theme) {
+        body.className = theme;
+        if (theme === 'light') {
+          lightInput.checked = true;
+          }
+        }
+      lightInput.addEventListener('change', function() {
+        if (lightInput.checked) {
+          body.classList.replace('dark', 'light');
+          localStorage.setItem('theme', 'light');
+          } else {
+            body.classList.replace('light', 'dark');
+            localStorage.setItem('theme', 'dark');
+          }
+      });

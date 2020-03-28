@@ -65,23 +65,17 @@ h5 {
 h6 {
   font-size: 1.25em;
 }
-h2:target,
-h3:target,
-h4:target {
-  animation: highlight 1s ease-in-out;
-}
-section:target > h2,
-section:target > h3,
-section:target > h4 {
-  animation: highlight 1s ease-in-out;
-}
 a {
   cursor: pointer;
   text-decoration: none;
+  text-decoration-color: var(--color);
 }
 a:hover,
 a:focus {
-  color: var(--main-blue);
+  color: var(--color);
+}
+li::before {
+  color: var(--color);
 }
 blockquote {
   background-color: rgba(0, 0, 0, .1);
@@ -99,7 +93,7 @@ blockquote p::after {
   content: '“';
   font-size: 1.8em;
   line-height: 0;
-  color: var(--main-blue);
+  color: var(--color);
 }
 blockquote p::before {
   padding-right: .5em;
@@ -112,10 +106,10 @@ blockquote > cite {
   display: block;
 }
 .active > a {
-  color: var(--main-blue);
+  color: var(--color);
 }
 .color {
-  color: var(--main-blue);
+  color: var(--color);
 }
 .right {
   float: right;
@@ -124,23 +118,23 @@ blockquote > cite {
   float: left;
 }
 .border-bottom {
-  border-bottom: 1px solid var(--main-blue);
+  border-bottom: 1px solid var(--color);
 }
 .border-top {
-  border-top: 1px solid var(--main-blue);
+  border-top: 1px solid var(--color);
 }
 .border-right {
-  border-right: 1px solid var(--main-blue);
+  border-right: 1px solid var(--color);
 }
 .border {
-  border: 1px solid var(--main-blue);
+  border: 1px solid var(--color);
 }
 .outline {
-  outline: 1px solid var(--main-blue);
+  outline: 1px solid var(--color);
   outline-offset: 5px;
 }
 .underline {
-  text-decoration: var(--main-blue) underline;
+  text-decoration: var(--color) underline;
 }
 figure {
   display: flex;
@@ -197,6 +191,12 @@ figure {
 html {
   text-align: center;
   font-family: "Times New Roman", serif;
+  scroll-behavior: smooth;
+}
+body {
+  color: var(--text);
+  background: var(--bg);
+  transition: background 500ms ease-in-out, color 1000ms ease-in-out;
 }
 .hidden {
   display: none !important;
@@ -229,7 +229,7 @@ html {
   -webkit-transform: rotate(-135deg);
 }
 .top-arrow:hover {
-  border-color: var(--main-blue);
+  border-color: var(--color);
 }
 #wrapper {
   display: flex;
@@ -238,8 +238,16 @@ html {
   align-items: center;
   width: 100%;
   min-height: 100%;
-  background-color: white;
-  color: black;
+}
+.light {
+  --text: black;
+  --bg: white;
+  --color: var(--main-blue);
+}
+.dark {
+  --text: white;
+  --bg: var(--main-black);
+  --color: var(--main-gold);
 }
 #language-label {
   position: fixed;
@@ -247,7 +255,7 @@ html {
   right: 10px;
   margin-top: 5px;
   cursor: pointer;
-  color: black;
+  color: var(--text);
   font-weight: bold;
   opacity: .7;
   transition: opacity .5s ease-in-out;
@@ -262,11 +270,11 @@ html {
   content: '';
   width: 30%;
   height: 2px;
-  background: black;
+  background: var(--text);
   position: absolute;
   bottom: -5px;
   right: 15px;
-  transition: all .3s ease-in-out;
+  transition: right .3s ease-in-out;
 }
 #language-label:hover span::after {
   right: 0px;
@@ -282,7 +290,7 @@ html {
   top: 0;
   right: 10px;
   margin-top: 5px;
-  color: black;
+  color: var(--text);
 }
 #language-alt-links a {
   margin: 0 .5rem;
@@ -292,7 +300,7 @@ html {
   position: fixed;
   top: 0;
   left: 10px;
-  color: black;
+  color: var(--text);
   font-weight: bold;
   margin-top: 5px;
   cursor: pointer;
@@ -309,115 +317,20 @@ html {
   content: "";
   width: 30%;
   height: 2px;
-  background: black;
+  background: var(--text);
   position: absolute;
   bottom: -5px;
   left: 15px;
-  transition: all .3s ease-in-out;
+  transition: left .3s ease-in-out;
 }
 #light-label:hover span::after {
   left: 0px;
 }
-#light-input:checked + #light-label {
-  color: white;
-}
 #light-input:checked + #light-label span::after {
-  background: white;
   left: 40px;
 }
 #light-input:checked + #light-label:hover span::after {
   left: 60px;
-}
-#light-input:checked ~ #wrapper {
-  background: var(--main-black);
-  color: white;
-}
-#light-input:checked ~ #wrapper blockquote p::before,
-#light-input:checked ~ #wrapper blockquote p::after {
-  color: var(--main-gold);
-}
-#light-input:checked ~ #wrapper .circle-icon-box .circle {
-  border: 1px solid white;
-}
-#light-input:checked ~ #wrapper .circle-icon-box:hover .circle {
-  border-color: var(--main-gold);
-}
-#light-input:checked ~ #wrapper .color {
-  color: var(--main-gold);
-}
-#light-input:checked ~ #wrapper .active > a {
-  color: var(--main-gold);
-}
-#light-input:checked ~ #wrapper .border-top {
-  border-top: 1px solid var(--main-gold);
-}
-#light-input:checked ~ #wrapper .border-right {
-  border-right: 1px solid var(--main-gold);
-}
-#light-input:checked ~ #wrapper .border-bottom {
-  border-bottom: 1px solid var(--main-gold);
-}
-#light-input:checked ~ #wrapper .border {
-  border: 1px solid var(--main-gold);
-}
-#light-input:checked ~ #wrapper .outline {
-  outline: 1px solid var(--main-gold);
-  outline-offset: 5px;
-}
-#light-input:checked ~ #wrapper a:hover,
-#light-input:checked ~ #wrapper a:focus {
-  color: var(--main-gold);
-}
-#light-input:checked ~ #wrapper a {
-  text-decoration-color: var(--main-gold);
-}
-#light-input:checked ~ #language-label {
-  color: white;
-}
-#light-input:checked ~ #language-label span::after {
-  background: white;
-}
-#light-input:checked ~ #wrapper li::before {
-  color: var(--main-gold);
-}
-#light-input:checked ~ #wrapper .underline {
-  text-decoration-color: var(--main-gold);
-}
-#light-input:checked ~ #top-arrow .top-arrow:hover {
-  border-color: var(--main-gold);
-}
-#light-input:checked ~ #wrapper input[type='submit'] {
-  border-color: var(--main-gold);
-  color: var(--main-gold);
-}
-#light-input:checked ~ #wrapper input[type='submit']:hover {
-  background-color: var(--main-gold);
-  color: var(--main-grey);
-}
-#light-input:checked ~ #wrapper textarea,
-#light-input:checked ~ #wrapper input[type='text'] {
-  border-color: var(--main-gold);
-}
-#light-input:checked ~ #wrapper input[type='text']:focus,
-#light-input:checked ~ #wrapper textarea:focus {
-  box-shadow: 3px 3px var(--main-gold);
-}
-#light-input:checked ~ #wrapper .donation-button {
-  border-color: var(--main-gold);
-}
-#light-input:checked ~ #wrapper .tags a {
-  color: var(--main-gold);
-  border-color: var(--main-gold);
-}
-#light-input:checked ~ #wrapper .tags a:hover {
-  box-shadow: 3px 3px var(--main-gold);
-}
-#light-input:checked ~ #wrapper .box .detail {
-  color: black;
-  background-color: var(--main-gold);
-}
-#light-input:checked ~ #wrapper #main-footer .logo:hover {
-  fill: var(--main-gold);
 }
 
 /**** HEADER ****/
@@ -451,19 +364,18 @@ html {
   margin: 5px 0;
 }
 .circle-icon-box .circle {
-  border: 1px solid black;
+  border: 1px solid var(--text);
   border-radius: 50%;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  transition: all .15s ease-in-out;
+  transition: border-color .3s ease-in-out;
   margin: auto;
-  transition: border-color .6s ease-in-out;
 }
 .circle-icon-box:hover .circle {
-  border-color: var(--main-blue);
+  border-color: var(--color);
 }
 .circle-icon-box .big {
   width: 50px;
@@ -544,8 +456,7 @@ html {
   display: inline-block;
   width: 100%;
   height: 100%;
-  transition: all 100ms ease-in-out;
-  }
+}
 .nav-blog > ol {
   padding: 1rem .2rem;
   list-style: none;
@@ -561,7 +472,7 @@ html {
 }
 .nav-blog > ol > li::before {
   content: counter(nav-counter, upper-roman);
-  color: var(--main-blue);
+  color: var(--color);
 }
 .nav-blog ol > li:hover {
   background-color: Rgba(0, 0, 0, .1);
@@ -577,7 +488,6 @@ html {
   flex-flow: column nowrap;
   justify-content: space-between;
   align-items: center;
-  transition: all .4s ease-in-out;
   width: 100%;
 }
 .preview-li {
@@ -630,15 +540,15 @@ html {
 .tags a {
   font-weight: bold;
   margin: .8em .8em 0 0;
-  color: var(--main-blue);
+  color: var(--color);
   border-width: 1px;
   border-style: solid;
-  border-color: var(--main-blue);
+  border-color: var(--color);
   padding: .6em 1.1em;
   transition: all .15s ease-in-out;
 }
 .tags a:hover {
-  box-shadow: 3px 3px var(--main-blue);
+  box-shadow: 3px 3px var(--color);
   transform: scale(1.1);
 }
 #entry {
@@ -656,23 +566,19 @@ html {
   list-style: none;
   padding: 10px 0;
 }
-#entry .post-entry > ul > li::before {
+#entry ul > li::before {
   content: '\2192';
   margin-right: 5px;
   font-size: 1.8em;
   line-height: 1em;
-  color: var(--main-blue);
-}
-li::marker {
-  color: var(--main-blue);
+  color: var(--color);
 }
 #entry ul li ul > li {
   list-style: lower-roman;
   margin-left: 60px;
 }
 #entry a {
-  text-decoration: underline;
-  text-decoration-color: var(--main-blue);
+  text-decoration-line: underline;
 }
 #entry blockquote a {
   text-decoration: none;
@@ -681,7 +587,7 @@ li::marker {
   content: 'CLICK THE IMAGE TO ENLARGE';
   color: var(--main-red);
   opacity: 0;
-  transition: opacity .3s ease-in-out;
+  transition: opacity .15s ease-in-out;
 }
 #entry figure:hover::after {
   opacity: 1;
@@ -699,8 +605,8 @@ li::marker {
   margin: 1rem 0;
 }
 #entry .intro-box blockquote {
-  background-color: rgba(0, 0, 0, .7) !important;
-  color: white !important;
+  background-color: rgba(0, 0, 0, .7);
+  color: white;
 }
 
 #entry p > :first-child::first-letter {
@@ -754,27 +660,27 @@ input[type='text'] {
   border: none;
   padding: .8rem;
   margin: .8rem 0;
-  border: 1px solid var(--main-blue);
+  border: 1px solid var(--color);
 }
 input[type='text']:focus,
 textarea:focus {
-  box-shadow: 3px 3px var(--main-blue);
+  box-shadow: 3px 3px var(--color);
 }
 textarea {
-  border: 1px solid var(--main-blue);
+  border: 1px solid var(--color);
   padding: 1.2rem;
   margin: .8rem 0;
 }
 input[type='submit'] {
-  border: 1px solid var(--main-blue);
-  color: var(--main-blue);
+  border: 1px solid var(--color);
+  color: var(--color);
   background-color: inherit;
   cursor: pointer;
   padding: .8rem;
 }
 input[type='submit']:hover {
-  background-color: var(--main-blue);
-  color: white;
+  background-color: var(--color);
+  color: var(--bg);
 }
 .extra-aside {
   background-color: rgba(0, 0, 0, .1);
@@ -789,7 +695,7 @@ input[type='submit']:hover {
   word-wrap: break-word;
 }
 .donation-button {
-  border: 1px solid var(--main-blue);
+  border: 1px solid var(--color);
   border-radius: 5px;
   padding: .5rem;
   margin: 1rem;
@@ -817,14 +723,13 @@ input[type='submit']:hover {
 }
 .books-box .book-element::before {
   content: counter(book-counter, lower-roman) ' ';
-  color: var(--main-blue);
+  color: var(--color);
 }
 .book-element p {
   display: inline-block;
 }
 .books-box a {
-  text-decoration: underline;
-  text-decoration-color: var(--main-blue);
+  text-decoration-line: underline;
 }
 
 
@@ -876,8 +781,8 @@ input[type='submit']:hover {
   padding: 0 .5rem;
   text-align: center;
   vertical-align: middle;
-  transition: all .3s ease-in-out;
-  background-color: var(--main-blue);
+  transition: opacity .3s ease-in-out;
+  background-color: var(--color);
 }
 .box .detail .alert {
   color: var(--main-red);
@@ -922,7 +827,6 @@ input[type='submit']:hover {
   margin-right: 5px;
   font-size: 1.8em;
   line-height: 1em;
-  color: var(--main-blue);
 }
 .about .presentation ul li ul {
   counter-reset: about-counter;
@@ -933,7 +837,6 @@ input[type='submit']:hover {
 }
 .about .presentation ul li ul > li::before {
   content: counter(about-counter, lower-roman) ' ';
-  color: var(--main-blue);
 }
 .about .row {
   display: flex;
@@ -947,10 +850,6 @@ input[type='submit']:hover {
 }
 .about .images-group img {
   padding: 1rem;
-}
-.expandable:hover {
-  opacity: 0.6;
-  transition: all .5s ease-in-out;
 }
 .column img {
   margin-top: 12px;
@@ -1011,7 +910,7 @@ input[type='submit']:hover {
   transition: all .3s ease-in-out;
 }
 #main-footer .logo:hover {
-  fill: var(--main-blue);
+  fill: var(--color);
 }
 #footer-icons .logo-info {
   opacity: 0;
@@ -1092,12 +991,4 @@ input[type='submit']:hover {
 
 @keyframes clockwise-rotation {
   to {transform: rotate(360deg);}
-}
-@keyframes highlight {
-  from {
-    background-color: var(--light-blue);
-  }
-  to {
-    background-color: transparent;
-  }
 }

@@ -1,6 +1,5 @@
 // Extra functionality for the Blog
 // Light/Dark theme persistent
-
 window.addEventListener('load', function() {
   // Get input and value of light input
   try {
