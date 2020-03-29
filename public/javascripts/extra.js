@@ -1,25 +1,7 @@
 // Extra functionality for the Blog
-// Light/Dark theme persistent
+
+// LANGUAGE BUTTON AND SAVING TO LOCALSTORAGE
 window.addEventListener('load', function() {
-  // Get input and value of light input
-  try {
-    var lightInputValue = JSON.parse(localStorage.getItem('lightInputValues')) || false;
-    var light_input = document.querySelector('#light-input');
-
-    light_input.addEventListener('change', function() {
-      lightInputValue = this.checked;
-      console.log('light saved');
-
-      localStorage.setItem('lightInputValues', JSON.stringify(lightInputValue));
-    });
-    if (lightInputValue) {
-      light_input.checked = true;
-    }
-  } catch(err) {
-    console.log('No Light input');
-  }
-
-  // Get input and value of language input
   try {
     var langInputValue = window.location.href.indexOf('/EN') > -1 ? false : true;
     var lang_input = document.querySelector('#language-input');
@@ -50,24 +32,6 @@ window.addEventListener('load', function() {
 // For IE only
 if (window.attachEvent) {
   window.attachEvent('onload', function() {
-    // Get input and value of light input
-    try {
-      var lightInputValue = JSON.parse(localStorage.getItem('lightInputValues')) || false;
-      var light_input = document.querySelector('#light-input');
-
-      light_input.attachEvent('change', function() {
-        lightInputValue = this.checked;
-        console.log('light saved');
-
-        localStorage.setItem('lightInputValues', JSON.stringify(lightInputValue));
-      });
-      if (lightInputValue) {
-        light_input.checked = true;
-      }
-    } catch(err) {
-      console.log('No Light input');
-    }
-
     // Get input and value of language input
     try {
       var langInputValue = JSON.parse(localStorage.getItem('lang')) || false;
@@ -94,7 +58,7 @@ if (window.attachEvent) {
   })
 }
 
-// Scroll To Top function
+// SCROLL TO TOP FUNCTION
 window.onscroll = function() { scrollFunction() };
 
 function scrollFunction() {

@@ -11,7 +11,7 @@ html(lang='es-ES')
     script(src='/javascripts/extra.js')
     script(src='/javascripts/toc.js')
     link(rel='icon', href='')
-  body.light
+  body.dark
     input#light-input.sr-only(type='checkbox', autocomplete='off')
     label#light-label(for='light-input')
       span Claro | Oscuro
@@ -20,8 +20,8 @@ html(lang='es-ES')
     label#language-label.hidden(for='language-input')
       span English | Español
     div#language-alt-links.show
-      a(href='/EN' class='border-bottom') English
-      a(href='/ES' class='border-bottom') Español
+      a(href='/EN') English
+      a(href='/ES') Español
     // Language-input EN/ES mode
     a#top-arrow(href="#wrapper")
       .top-arrow
@@ -95,7 +95,7 @@ html(lang='es-ES')
       document.querySelector('#language-label').className = document.querySelector('#language-label').className.replace('hidden', 'show')
       document.querySelector('#language-alt-links').className = document.querySelector('#language-alt-links').className.replace('show', 'hidden')
       document.querySelector('#top-arrow').className = 'hidden';
-      
+    script(type='text/javascript').
       const lightInput = document.getElementById('light-input');
       const body = document.body;
       const theme = localStorage.getItem('theme');
