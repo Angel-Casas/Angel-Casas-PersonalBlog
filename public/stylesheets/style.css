@@ -530,7 +530,6 @@ body {
 }
 .post {
   margin: 0 auto;
-  padding: 0 1.5rem;
   width: 100%;
 }
 .entry-small {
@@ -598,6 +597,9 @@ body {
 }
 #entry figure:hover::after {
   opacity: 1;
+}
+#entry .post-entry > *:not(.intro-box) {
+  padding: 0 .5rem;
 }
 #entry .intro-box {
   display: flex;
@@ -939,6 +941,9 @@ input[type='submit']:hover {
     width: 300px;
     height: auto;
     margin-left: 2rem;
+  }
+  .post {
+    padding: 0 1.5rem;
   }
 }
 
