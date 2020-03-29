@@ -258,6 +258,7 @@ body {
   color: var(--text);
   font-weight: bold;
   opacity: .7;
+  z-index: 10000;
   transition: opacity .5s ease-in-out;
 }
 #language-label:hover {
@@ -293,6 +294,7 @@ body {
   color: var(--text);
   font-weight: bold;
   opacity: .7;
+  z-index: 10000;
   transition: opacity .5s ease-in-out;
 }
 #language-alt-links:hover {
@@ -312,6 +314,7 @@ body {
   margin-top: 5px;
   cursor: pointer;
   opacity: .7;
+  z-index: 10000;
   transition: opacity .5s ease-in-out;
 }
 #light-label:hover {
@@ -762,14 +765,6 @@ input[type='submit']:hover {
 .box {
   width: 350px;
   height: 350px;
-}
-.box:hover .detail {
-  opacity: .9;
-}
-.box a {
-  display: inline-block;
-  width: 100%;
-  height: 100%;
   position: relative;
 }
 .box img {
@@ -783,15 +778,26 @@ input[type='submit']:hover {
   top: 0;
   left: 0;
   opacity: 0;
+  font-size: 2rem;
   color: white;
-  font-size: 1.8rem;
   width: 100%;
   height: 100%;
-  padding: 0 .5rem;
+  padding: 0 1rem;
   text-align: center;
   vertical-align: middle;
   transition: opacity .3s ease-in-out;
-  background-color: var(--color);
+  background-color: var(--main-grey);
+}
+.box:hover .detail {
+  opacity: 1;
+}
+.box .detail a {
+  font-weight: bold;
+  text-decoration-line: underline;
+  text-decoration-color: var(--main-gold);
+}
+.box .detail a:hover {
+  color: var(--main-gold);
 }
 .box .detail .alert {
   color: var(--main-red);
