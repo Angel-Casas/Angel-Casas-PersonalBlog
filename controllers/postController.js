@@ -464,9 +464,5 @@ exports.projects_section_get = function (req, res, next) {
 
 // Privacy policy page on GET
 exports.privacy_get = function (req, res, next) {
-  if (req.params.lang == 'EN') {
-    res.render('privacy-policy-EN');
-  } else {
-    res.render('privacy-policy-ES');
-  }
+  res.render('privacy-policy-ES');
 };
