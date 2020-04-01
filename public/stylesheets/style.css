@@ -82,7 +82,7 @@ blockquote {
   font-family: 'Playfair Display', serif;
   font-size: 1.2em;
   padding: 0.5em 1em;
-  margin: 1em;
+  margin: .8em;
 }
 blockquote p {
   line-height: 1.7em;
@@ -162,6 +162,7 @@ figure img {
 }
 .caption-text {
   font-style: italic;
+  padding: 0 .5rem;
 }
 summary {
   cursor: pointer;
@@ -574,6 +575,7 @@ body {
 }
 #entry p {
   text-align: left;
+  padding: 0 .5rem;
 }
 #entry ul {
   text-align: left;
@@ -581,7 +583,7 @@ body {
 }
 #entry ul li {
   list-style: none;
-  padding: 10px 0;
+  padding: .8rem .5rem;
 }
 #entry ul > li::before {
   content: '\2192';
